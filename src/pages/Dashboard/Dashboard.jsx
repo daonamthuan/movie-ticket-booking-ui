@@ -1,21 +1,20 @@
 import { useEffect, useState } from "react";
-import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import CircularProgress from "@mui/material/CircularProgress";
 import authorizedAxiosInstance from "~/utils/authorizedAxios";
-import { useNavigate } from "react-router-dom";
-import { handleLogoutAPI } from "~/apis";
-
-import Divider from "@mui/material/Divider";
-import Alert from "@mui/material/Alert";
-import Button from "@mui/material/Button";
-
-import Sidebar from "./Sidebar";
-import ProductDashboard from "./ProductDashboard/ProductDashboard";
+import Sidebar from "./Sidebar/Sidebar";
+import AdminOverview from "./Admin/AdminOverview/AdminOverview";
+import AdminScheduleManagement from "./Admin/AdminScheduleManagement/AdminScheduleManagement";
+import AdminBookingManagement from "./Admin/AdminBookingManagement/AdminBookingManagement";
+import AdminMovieManagement from "./Admin/AdminMovieManagement/AdminMovieManagement";
+import AdminFoodManagement from "./Admin/AdminFoodManagement/AdminFoodManagement";
+import AdminUserManagement from "./Admin/AdminUserManagement/AdminUserManagement";
+import Topbar from "./Topbar/Topbar";
+import Box from "@mui/material/Box";
 
 function Dashboard() {
     const [user, setUser] = useState(null);
-    const navigate = useNavigate();
+    const [selectedOption, setSelectedOption] = useState("");
 
     useEffect(() => {
         const fetchData = async () => {
@@ -25,11 +24,27 @@ function Dashboard() {
         fetchData();
     }, []);
 
-    const handleLogout = async () => {
-        await handleLogoutAPI();
-        localStorage.removeItem("userInfo");
+    const handleListItemClick = (option) => {
+        setSelectedOption(option);
+    };
 
-        navigate("/login");
+    const renderContent = () => {
+        switch (selectedOption) {
+            case "overview":
+                return <AdminOverview />;
+            case "schedules":
+                return <AdminScheduleManagement />;
+            case "tickets":
+                return <AdminBookingManagement />;
+            case "movies":
+                return <AdminMovieManagement />;
+            case "foods":
+                return <AdminFoodManagement />;
+            case "users":
+                return <AdminUserManagement />;
+            default:
+                return <AdminUserManagement />;
+        }
     };
 
     if (!user) {
@@ -52,42 +67,22 @@ function Dashboard() {
 
     return (
         <>
-            {/* <Box
-                sx={{
-                    maxWidth: "1120px",
-                    marginTop: "1em",
-                    display: "flex",
-                    justifyContent: "center",
-                    flexDirection: "column",
-                    padding: "0 1em",
-                }}
-            >
-                <Alert severity="info" sx={{ ".MuiAlert-message": { overflow: "hidden" } }}>
-                    Đây là trang Dashboard sau khi user:&nbsp;
-                    <Typography
-                        variant="span"
-                        sx={{ fontWeight: "bold", "&:hover": { color: "#fdba26" } }}
-                    >
-                        {user?.email}
-                    </Typography>
-                    &nbsp; đăng nhập thành công thì mới cho truy cập vào.
-                </Alert>
-                <Button
-                    type="button"
-                    variant="contained"
-                    color="info"
-                    size="large"
-                    sx={{ mt: 2, maxWidth: "min-content", alignSelf: "flex-end" }}
-                    onClick={handleLogout}
-                >
-                    Logout
-                </Button>
-                <Divider sx={{ my: 2 }} />
-            </Box> */}
-
             <Box sx={{ display: "flex" }}>
-                <Sidebar />
-                <ProductDashboard />
+                <Sidebar
+                    selectedOption={selectedOption}
+                    handleListItemClick={handleListItemClick}
+                />
+                <Box
+                    sx={{
+                        backgroundColor: "#FAFBFD",
+                        px: 4,
+                        py: 1,
+                        width: "100%",
+                    }}
+                >
+                    <Topbar />
+                    {renderContent()}
+                </Box>
             </Box>
         </>
     );

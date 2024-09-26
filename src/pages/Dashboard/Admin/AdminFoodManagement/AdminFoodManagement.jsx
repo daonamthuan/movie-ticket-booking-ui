@@ -1,6 +1,6 @@
 import Box from "@mui/material/Box";
 
-function ProductDashboard() {
+function AdminFoodManagement() {
     return (
         <Box
             sx={{
@@ -12,9 +12,9 @@ function ProductDashboard() {
                 width: "100%",
             }}
         >
-            This is a Primary Box
+            This is a Primary Box food management
         </Box>
     );
 }
 
-export default ProductDashboard;
+export default AdminFoodManagement;

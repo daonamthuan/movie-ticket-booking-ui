@@ -1,23 +1,32 @@
-import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
+import { useEffect } from "react";
 import { Card as MuiCard } from "@mui/material";
 import CardActions from "@mui/material/CardActions";
 import TextField from "@mui/material/TextField";
 import Zoom from "@mui/material/Zoom";
 import Alert from "@mui/material/Alert";
 import { useForm } from "react-hook-form";
-import Typography from "@mui/material/Typography";
-import CinemaBookingLogo from "~/assets/cb-logo.png";
+import CineFastLogo from "~/assets/cinefast-logo.png";
 import authorizedAxiosInstance from "~/utils/authorizedAxios";
 import { useNavigate } from "react-router-dom";
+import Box from "@mui/material/Box";
 
 function Login() {
     const {
         register,
         handleSubmit,
         formState: { errors },
+        getValues,
     } = useForm();
     const navigate = useNavigate();
+
+    useEffect(() => {
+        console.log("Default value of register: ", getValues());
+    }, []);
+
+    useEffect(() => {
+        console.log("Check render: ", getValues());
+    });
 
     const submitLogIn = async (data) => {
         const res = await authorizedAxiosInstance.post(`/users/login`, data);
@@ -54,37 +63,26 @@ function Login() {
                         sx={{
                             minWidth: 380,
                             maxWidth: 380,
-                            marginTop: "6em",
+                            marginTop: "8.6em",
                             p: "0.5em 0",
                             borderRadius: 2,
                         }}
                     >
-                        <Box sx={{ width: "70px", bgcolor: "white", margin: "0 auto" }}>
-                            <img src={CinemaBookingLogo} width="100%" />
+                        <Box sx={{ width: "200px", bgcolor: "white", margin: "5px auto 0" }}>
+                            <img src={CineFastLogo} width="100%" />
                         </Box>
-                        <Box
-                            sx={{
-                                display: "flex",
-                                justifyContent: "center",
-                                color: (theme) => theme.palette.grey[500],
-                            }}
-                        >
-                            <Box>
-                                <Typography>Hint: trungquandev.official@gmail.com</Typography>
-                                <Typography>Pass: trungquandev@123</Typography>
-                            </Box>
-                        </Box>
+
                         <Box sx={{ padding: "0 1em 1em 1em" }}>
                             <Box sx={{ marginTop: "1.2em" }}>
                                 <TextField
                                     autoFocus
                                     fullWidth
-                                    label="Enter Email..."
-                                    type="text"
+                                    label="Email..."
+                                    type="email"
                                     variant="outlined"
                                     error={!!errors.email}
                                     {...register("email", {
-                                        required: "This field is required.",
+                                        required: "Email không được để trống!",
                                     })}
                                 />
                                 {errors.email && (
@@ -103,12 +101,12 @@ function Login() {
                             <Box sx={{ marginTop: "1em" }}>
                                 <TextField
                                     fullWidth
-                                    label="Enter Password..."
+                                    label="Mật khẩu..."
                                     type="password"
                                     variant="outlined"
-                                    error={!!errors.password}
+                                    error={!!errors.password} // chuyen doi sang dang boolean
                                     {...register("password", {
-                                        required: "This field is obligation.",
+                                        required: "Mật khẩu không được để trống!",
                                     })}
                                 />
                                 {errors.password && (
@@ -124,7 +122,7 @@ function Login() {
                                 )}
                             </Box>
                         </Box>
-                        <CardActions sx={{ padding: "0.5em 1em 1em 1em" }}>
+                        <CardActions sx={{ padding: "0 1em 2em 1em", mt: 1 }}>
                             <Button
                                 type="submit"
                                 variant="contained"
@@ -132,7 +130,7 @@ function Login() {
                                 size="large"
                                 fullWidth
                             >
-                                Login
+                                ĐĂNG NHẬP
                             </Button>
                         </CardActions>
                     </MuiCard>
