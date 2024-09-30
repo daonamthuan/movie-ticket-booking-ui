@@ -3,6 +3,7 @@ import { DataGrid } from "@mui/x-data-grid";
 import { useSelector } from "react-redux";
 import { fetchUsersDataAPI, deleteUserAPI } from "~/apis";
 import { toast } from "react-toastify";
+import { getFileNameFromPath } from "~/utils/helper";
 import emitter from "~/utils/emitter";
 import dayjs from "dayjs";
 import IconButton from "@mui/material/IconButton";
@@ -19,6 +20,10 @@ function TableUser({ setIsOpenUserModal, setIsCreateNewUser, setDataUserEdit }) 
 
         // emitter to refreshTable
         emitter.on("refreshTableUserData", fetchUsersData);
+        return () => {
+            // clear emitter when component unmount
+            emitter.off("refreshTableUserData", fetchUsersData);
+        };
     }, []);
 
     const columns = [
@@ -46,7 +51,7 @@ function TableUser({ setIsOpenUserModal, setIsCreateNewUser, setDataUserEdit }) 
         {
             field: "gender",
             headerName: "Giới tính",
-            width: 90,
+            width: 80,
             renderCell: (params) => {
                 const gender = genders.find((gender) => gender.keyCode === params.value);
                 return gender.value;
@@ -83,7 +88,7 @@ function TableUser({ setIsOpenUserModal, setIsCreateNewUser, setDataUserEdit }) 
         {
             field: "action",
             headerName: "Thao tác",
-            width: 115,
+            width: 100,
             renderCell: (params) => (
                 <div>
                     <IconButton
@@ -117,9 +122,10 @@ function TableUser({ setIsOpenUserModal, setIsCreateNewUser, setDataUserEdit }) 
     };
 
     const handleDeleteUser = async (userData) => {
-        let response = await deleteUserAPI(userData.id);
+        let publicId = getFileNameFromPath(userData.image);
+        let response = await deleteUserAPI(userData.id, publicId);
         if (response && response.status === 200) {
-            toast.success("Delete user successfully!");
+            toast.success("Xóa người dùng thành công!");
             fetchUsersData();
         }
     };

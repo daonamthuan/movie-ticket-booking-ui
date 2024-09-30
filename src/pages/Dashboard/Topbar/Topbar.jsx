@@ -55,7 +55,7 @@ function Topbar() {
                 flexGrow: 1,
                 height: "70px",
                 borderRadius: "5px",
-                p: 2,
+                py: 2,
             }}
         >
             <Box sx={{ display: "flex", alignItems: "center" }}>

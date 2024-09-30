@@ -38,7 +38,7 @@ export const userSlice = createSlice({
                 state.genders = action.payload;
             })
             .addCase(fetchGenders.rejected, (state, action) => {
-                state.isLoading = "failed";
+                state.isLoading = false;
                 state.error = action.error.message;
             })
             .addCase(fetchRoles.pending, (state) => {

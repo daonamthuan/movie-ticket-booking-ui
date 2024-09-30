@@ -27,11 +27,11 @@ function AdminUserManagement() {
 
     return (
         <>
-            <Box sx={{ bgcolor: "background.paper", p: "15PX 30px", borderRadius: "20px" }}>
+            <Box sx={{ bgcolor: "background.paper", p: "15px 30px", borderRadius: "20px" }}>
                 <Typography
                     sx={{
                         mb: 1.5,
-                        fontSize: "20px",
+                        fontSize: "18px",
                         fontWeight: 600,
                         textAlign: "center",
                         color: "#005792",

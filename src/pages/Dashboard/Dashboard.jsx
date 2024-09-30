@@ -1,4 +1,6 @@
+import { Outlet } from "react-router-dom";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Typography from "@mui/material/Typography";
 import CircularProgress from "@mui/material/CircularProgress";
 import authorizedAxiosInstance from "~/utils/authorizedAxios";
@@ -14,7 +16,8 @@ import Box from "@mui/material/Box";
 
 function Dashboard() {
     const [user, setUser] = useState(null);
-    const [selectedOption, setSelectedOption] = useState("");
+    const [selectedOption, setSelectedOption] = useState("movies");
+    const navigate = useNavigate();
 
     useEffect(() => {
         const fetchData = async () => {
@@ -22,29 +25,34 @@ function Dashboard() {
             setUser(res.data);
         };
         fetchData();
+        navigate("/dashboard/movies");
     }, []);
 
     const handleListItemClick = (option) => {
-        setSelectedOption(option);
-    };
-
-    const renderContent = () => {
-        switch (selectedOption) {
+        switch (option) {
             case "overview":
-                return <AdminOverview />;
+                navigate("/dashboard/overview");
+                break;
             case "schedules":
-                return <AdminScheduleManagement />;
+                navigate("/dashboard/schedules");
+                break;
             case "tickets":
-                return <AdminBookingManagement />;
+                navigate("/dashboard/tickets");
+                break;
             case "movies":
-                return <AdminMovieManagement />;
+                navigate("/dashboard/movies");
+                break;
             case "foods":
-                return <AdminFoodManagement />;
+                navigate("/dashboard/foods");
+                break;
             case "users":
-                return <AdminUserManagement />;
+                navigate("/dashboard/users");
+                break;
             default:
-                return <AdminUserManagement />;
+                navigate("/dashboard/movies");
+                break;
         }
+        setSelectedOption(option);
     };
 
     if (!user) {
@@ -67,21 +75,21 @@ function Dashboard() {
 
     return (
         <>
-            <Box sx={{ display: "flex" }}>
+            <Box sx={{ display: "flex", bgcolor: "#F8F8FA", gap: 4.5 }}>
                 <Sidebar
                     selectedOption={selectedOption}
                     handleListItemClick={handleListItemClick}
                 />
                 <Box
                     sx={{
-                        backgroundColor: "#FAFBFD",
+                        backgroundColor: "#F8F8FA",
                         px: 4,
                         py: 1,
                         width: "100%",
                     }}
                 >
                     <Topbar />
-                    {renderContent()}
+                    <Outlet />
                 </Box>
             </Box>
         </>

@@ -27,16 +27,17 @@ export const fetchMembershipAPI = async () => {
     return await authorizedAxiosInstance.get("/users/get-all-memberships");
 };
 
+export const fetchAgeLimitAPI = async () => {
+    return await authorizedAxiosInstance.get("/users/get-age-limits");
+};
+
 export const createNewUserAPI = async (data) => {
     const formData = new FormData();
 
     for (const [key, value] of Object.entries(data)) {
-        if (key === "image" && value instanceof File) {
-            formData.append(key, value);
-        } else {
-            formData.append(key, value);
-        }
+        formData.append(key, value);
     }
+
     return await authorizedAxiosInstance.post("/users/create-new-user", formData, {
         headers: {
             "Content-Type": "multipart/form-data",
@@ -54,7 +55,7 @@ export const updateUserAPI = async (data) => {
             formData.append(key, value);
         }
     }
-    return await authorizedAxiosInstance.post("/users/update-user", formData, {
+    return await authorizedAxiosInstance.put("/users/update-user", formData, {
         headers: {
             "Content-Type": "multipart/form-data",
         },
@@ -62,6 +63,48 @@ export const updateUserAPI = async (data) => {
     // return await authorizedAxiosInstance.post("/users/update-user", data);
 };
 
-export const deleteUserAPI = async (userId) => {
-    return await authorizedAxiosInstance.delete(`/users/delete-user/${userId}`);
+export const deleteUserAPI = async (userId, publicId) => {
+    return await authorizedAxiosInstance.delete(
+        `/users/delete-user?userId=${userId}&publicId=${publicId}`
+    );
+};
+
+export const getRevenueLast30DaysAPI = async () => {
+    return await authorizedAxiosInstance.get("/dashboards/get-revenue");
+};
+
+export const getAllMoviesByStatusAPI = async (movieStatus) => {
+    return await authorizedAxiosInstance.get(`/dashboards/get-all-movies?status=${movieStatus}`);
+};
+
+export const createNewMovieAPI = async (movieData) => {
+    const formData = new FormData();
+
+    for (const [key, value] of Object.entries(movieData)) {
+        formData.append(key, value);
+    }
+    return await authorizedAxiosInstance.post("/dashboards/create-new-movie", formData, {
+        headers: {
+            "Content-Type": "multipart/form-data",
+        },
+    });
+};
+
+export const updateMovieAPI = async (movieData) => {
+    const formData = new FormData();
+
+    for (const [key, value] of Object.entries(movieData)) {
+        formData.append(key, value);
+    }
+    return await authorizedAxiosInstance.put("/dashboards/update-movie", formData, {
+        headers: {
+            "Content-Type": "multipart/form-data",
+        },
+    });
+};
+
+export const deleteMovieAPI = async (movieId, publicId) => {
+    return await authorizedAxiosInstance.delete(
+        `/dashboards/delete-movie?movieId=${movieId}&publicId=${publicId}`
+    );
 };
