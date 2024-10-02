@@ -16,7 +16,7 @@ import Box from "@mui/material/Box";
 
 function Dashboard() {
     const [user, setUser] = useState(null);
-    const [selectedOption, setSelectedOption] = useState("movies");
+    const [selectedOption, setSelectedOption] = useState("foods");
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -25,7 +25,7 @@ function Dashboard() {
             setUser(res.data);
         };
         fetchData();
-        navigate("/dashboard/movies");
+        navigate("/dashboard/foods");
     }, []);
 
     const handleListItemClick = (option) => {

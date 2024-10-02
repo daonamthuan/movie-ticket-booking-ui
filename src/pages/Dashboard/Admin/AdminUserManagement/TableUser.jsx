@@ -92,14 +92,14 @@ function TableUser({ setIsOpenUserModal, setIsCreateNewUser, setDataUserEdit }) 
             renderCell: (params) => (
                 <div>
                     <IconButton
-                        onClick={() => handleEditUser(params.row)} // Thay params.row.id bằng giá trị bạn cần
+                        onClick={() => handleEditUser(params.row)}
                         aria-label="edit"
                         sx={{ color: "primary.main" }}
                     >
                         <EditIcon />
                     </IconButton>
                     <IconButton
-                        onClick={() => handleDeleteUser(params.row)} // Thay params.row.id bằng giá trị bạn cần
+                        onClick={() => handleDeleteUser(params.row)}
                         aria-label="delete"
                         sx={{ color: "red" }}
                     >
@@ -147,9 +147,9 @@ function TableUser({ setIsOpenUserModal, setIsCreateNewUser, setDataUserEdit }) 
                 disableRowSelectionOnClick
                 sx={{
                     "& .MuiDataGrid-columnHeaders": {
-                        backgroundColor: "#f0f0f0", // Màu nền cho tiêu đề cột
-                        fontWeight: "bold", // In đậm
-                        color: "#1976d2", // Màu chữ cho tiêu đề
+                        backgroundColor: "#f0f0f0",
+                        fontWeight: "bold",
+                        color: "#1976d2",
                     },
                 }}
             />

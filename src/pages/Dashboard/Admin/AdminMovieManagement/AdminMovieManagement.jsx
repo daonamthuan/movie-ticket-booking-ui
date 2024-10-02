@@ -33,7 +33,7 @@ function AdminMovieManagement() {
         setIsOpenMovieModal(true);
     };
 
-    const handleFetchMovie = () => {
+    const handleFetchMovies = () => {
         fetchMovies(movieStatus);
     };
 
@@ -90,7 +90,7 @@ function AdminMovieManagement() {
                         </Button>
                     </Box>
 
-                    <Box sx={{ mt: 2, display: "flex", flexDirection: "column", gap: 1.5 }}>
+                    <Box sx={{ mt: 2, display: "flex", flexDirection: "column", gap: 2 }}>
                         {movies &&
                             movies.length > 0 &&
                             movies.map((movie, index) => {
@@ -99,7 +99,7 @@ function AdminMovieManagement() {
                                         key={index}
                                         movieInfo={movie}
                                         setIsOpenMovieModal={setIsOpenMovieModal}
-                                        handleFetchMovie={handleFetchMovie}
+                                        handleFetchMovies={handleFetchMovies}
                                     />
                                 );
                             })}
@@ -109,7 +109,7 @@ function AdminMovieManagement() {
             <MovieModal
                 isOpenMovieModal={isOpenMovieModal}
                 setIsOpenMovieModal={setIsOpenMovieModal}
-                handleFetchMovie={handleFetchMovie}
+                handleFetchMovies={handleFetchMovies}
             />
         </>
     );

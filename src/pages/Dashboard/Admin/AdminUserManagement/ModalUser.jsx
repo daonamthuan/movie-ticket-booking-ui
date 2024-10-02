@@ -59,6 +59,7 @@ function ModalUser({
     const { genders, roles, memberships } = useSelector((state) => state.user);
 
     useEffect(() => {
+        console.log("useEffect DataUserEdit: ", dataUserEdit);
         reset({
             email: dataUserEdit.email || "",
             password: dataUserEdit.email || "",
@@ -70,6 +71,7 @@ function ModalUser({
             membership: dataUserEdit.membership || "",
             birthday: dataUserEdit.birthday || null,
             image: dataUserEdit.image || null,
+            image_old: dataUserEdit.image || null,
         });
     }, [dataUserEdit]);
 
@@ -80,8 +82,8 @@ function ModalUser({
 
     const handleSubmitCreateUser = async (data) => {
         console.log("User submit data: ", data);
-        if (!data.image) delete data.image;
         if (isCreateNewUser) {
+            delete data.image_old;
             let response = await createNewUserAPI(data);
             if (response && response.status === 201) {
                 toast.success("Tạo người dùng mới thành công!");
@@ -382,7 +384,7 @@ function ModalUser({
                                                 width="200px"
                                                 type="file"
                                                 onChange={(event) => {
-                                                    field.onChange(event.target.files[0]); // Cập nhật giá trị cho react-hook-form
+                                                    field.onChange(event.target.files[0]);
                                                 }}
                                                 style={{ display: "none" }} // Ẩn input file
                                             />

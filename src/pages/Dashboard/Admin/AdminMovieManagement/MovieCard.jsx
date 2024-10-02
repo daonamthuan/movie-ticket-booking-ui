@@ -13,7 +13,7 @@ import { deleteMovieAPI } from "~/apis";
 import { toast } from "react-toastify";
 import { getFileNameFromPath } from "~/utils/helper";
 
-function MovieCard({ movieInfo, setIsOpenMovieModal, handleFetchMovie }) {
+function MovieCard({ movieInfo, setIsOpenMovieModal, handleFetchMovies }) {
     const dispatch = useDispatch();
 
     const shortenMovieDescription = (description) => {
@@ -33,12 +33,12 @@ function MovieCard({ movieInfo, setIsOpenMovieModal, handleFetchMovie }) {
         let response = await deleteMovieAPI(movieInfo.id, publicId);
         if (response && response.status === 200) {
             toast.success("Xóa phim thành công!");
-            handleFetchMovie();
+            handleFetchMovies();
         }
     };
 
     return (
-        <Card sx={{ width: "100%", display: "flex" }}>
+        <Card sx={{ width: "100%", display: "flex", boxShadow: "rgba(0, 0, 0, 0.16) 0px 1px 4px" }}>
             <CardMedia
                 component="img"
                 sx={{ width: 120 }}
@@ -54,10 +54,10 @@ function MovieCard({ movieInfo, setIsOpenMovieModal, handleFetchMovie }) {
                         Thời lượng: {movieInfo.duration} phút
                     </Typography>
                     <Typography component="div" sx={{ color: "text.secondary", fontSize: "14px" }}>
-                        Đạo diễn: {movieInfo.directors} phút
+                        Đạo diễn: {movieInfo.directors}
                     </Typography>
                     <Typography component="div" sx={{ color: "text.secondary", fontSize: "14px" }}>
-                        Diễn viên: {movieInfo.actors} phút
+                        Diễn viên: {movieInfo.actors}
                     </Typography>
 
                     <Typography component="div" sx={{ color: "text.secondary", fontSize: "14px" }}>

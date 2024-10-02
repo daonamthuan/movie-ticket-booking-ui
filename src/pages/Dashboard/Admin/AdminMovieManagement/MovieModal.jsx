@@ -40,7 +40,7 @@ const styleMovieModal = {
     p: 4,
 };
 
-function MovieModal({ isOpenMovieModal, setIsOpenMovieModal, handleFetchMovie }) {
+function MovieModal({ isOpenMovieModal, setIsOpenMovieModal, handleFetchMovies }) {
     const dispatch = useDispatch();
     const ageLimitArray = useSelector((state) => state.movie.ageLimitArray);
     const dataMovieEdit = useSelector((state) => state.movie.dataMovieEdit);
@@ -68,9 +68,10 @@ function MovieModal({ isOpenMovieModal, setIsOpenMovieModal, handleFetchMovie })
             audioType: dataMovieEdit.audioType || "",
             description: dataMovieEdit.description || "",
 
-            image: dataMovieEdit.image || null,
             trailer: dataMovieEdit.trailer || "",
             status: dataMovieEdit.status || "",
+            image: dataMovieEdit.image || null,
+            image_old: dataMovieEdit.image || null,
         });
     }, [dataMovieEdit]);
 
@@ -80,12 +81,15 @@ function MovieModal({ isOpenMovieModal, setIsOpenMovieModal, handleFetchMovie })
 
     const handleCloseMovieModal = () => {
         setIsOpenMovieModal(false);
-        dispatch(clearMovieEditData());
+        if (!_.isEmpty(dataMovieEdit)) {
+            dispatch(clearMovieEditData());
+        }
     };
 
     const handleSubmitMovieForm = async (movieData) => {
         if (_.isEmpty(dataMovieEdit)) {
             // create new movie
+            delete movieData.image_old;
             let result = await createNewMovieAPI(movieData);
             if (result && result.status === 201) {
                 toast.success("Tạo phim mới thành công!");
@@ -93,14 +97,13 @@ function MovieModal({ isOpenMovieModal, setIsOpenMovieModal, handleFetchMovie })
         } else {
             // update movie
             movieData.id = dataMovieEdit.id;
-            console.log("Check movieData in update: ", movieData);
             let result = await updateMovieAPI(movieData);
             if (result && result.status === 200) {
                 toast.success("Cập nhật thông tin phim thành công!");
+                dispatch(clearMovieEditData());
             }
         }
-        handleFetchMovie();
-        dispatch(clearMovieEditData());
+        handleFetchMovies();
         setIsOpenMovieModal(false);
     };
 
