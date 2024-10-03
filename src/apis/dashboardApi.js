@@ -85,3 +85,44 @@ export const deleteFoodAPI = async (foodId, publicId) => {
         `/dashboards/delete-food?foodId=${foodId}&publicId=${publicId}`
     );
 };
+
+// Cinema
+export const fetchCinemasAPI = async () => {
+    return await authorizedAxiosInstance.get("/dashboards/get-all-cinemas");
+};
+
+export const createNewCinemaAPI = async (cinemaData) => {
+    const formData = new FormData();
+
+    for (const [key, value] of Object.entries(cinemaData)) {
+        if (value !== null) {
+            formData.append(key, value);
+        }
+    }
+    return await authorizedAxiosInstance.post("/dashboards/create-new-cinema", formData, {
+        headers: {
+            "Content-Type": "multipart/form-data",
+        },
+    });
+};
+
+export const updateCinemaAPI = async (cinemaData) => {
+    const formData = new FormData();
+
+    for (const [key, value] of Object.entries(cinemaData)) {
+        if (value !== null) {
+            formData.append(key, value);
+        }
+    }
+    return await authorizedAxiosInstance.put("/dashboards/update-cinema", formData, {
+        headers: {
+            "Content-Type": "multipart/form-data",
+        },
+    });
+};
+
+export const deleteCinemaAPI = async (cinemaId, publicId) => {
+    return await authorizedAxiosInstance.delete(
+        `/dashboards/delete-cinema?cinemaId=${cinemaId}&publicId=${publicId}`
+    );
+};

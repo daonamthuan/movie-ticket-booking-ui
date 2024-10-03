@@ -8,7 +8,7 @@ import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import dayjs from "dayjs";
 import { useDispatch } from "react-redux";
-import { setMovieEditData } from "~/redux/slice/movieSlice";
+import { setDataMovieEdit } from "~/redux/slice/movieSlice";
 import { deleteMovieAPI } from "~/apis";
 import { toast } from "react-toastify";
 import { getFileNameFromPath } from "~/utils/helper";
@@ -23,7 +23,7 @@ function MovieCard({ movieInfo, setIsOpenMovieModal, handleFetchMovies }) {
     };
 
     const handleEditMovie = (movieInfo) => {
-        dispatch(setMovieEditData(movieInfo));
+        dispatch(setDataMovieEdit(movieInfo));
         setIsOpenMovieModal(true);
         console.log("Movie Info: ", movieInfo);
     };

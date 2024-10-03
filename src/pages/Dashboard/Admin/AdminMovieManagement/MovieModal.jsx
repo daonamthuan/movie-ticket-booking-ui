@@ -4,7 +4,7 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchAgeLimits, clearMovieEditData } from "~/redux/slice/movieSlice";
+import { fetchAgeLimits, clearDataMovieEdit } from "~/redux/slice/movieSlice";
 import { createNewMovieAPI, updateMovieAPI } from "~/apis";
 import { toast } from "react-toastify";
 import dayjs from "dayjs";
@@ -82,7 +82,7 @@ function MovieModal({ isOpenMovieModal, setIsOpenMovieModal, handleFetchMovies }
     const handleCloseMovieModal = () => {
         setIsOpenMovieModal(false);
         if (!_.isEmpty(dataMovieEdit)) {
-            dispatch(clearMovieEditData());
+            dispatch(clearDataMovieEdit());
         }
     };
 
@@ -93,6 +93,7 @@ function MovieModal({ isOpenMovieModal, setIsOpenMovieModal, handleFetchMovies }
             let result = await createNewMovieAPI(movieData);
             if (result && result.status === 201) {
                 toast.success("Tạo phim mới thành công!");
+                dispatch(clearDataMovieEdit());
             }
         } else {
             // update movie
@@ -100,7 +101,7 @@ function MovieModal({ isOpenMovieModal, setIsOpenMovieModal, handleFetchMovies }
             let result = await updateMovieAPI(movieData);
             if (result && result.status === 200) {
                 toast.success("Cập nhật thông tin phim thành công!");
-                dispatch(clearMovieEditData());
+                dispatch(clearDataMovieEdit());
             }
         }
         handleFetchMovies();

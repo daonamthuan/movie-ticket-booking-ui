@@ -17,10 +17,10 @@ const movieSlice = createSlice({
     name: "movie",
     initialState,
     reducers: {
-        setMovieEditData: (state, action) => {
+        setDataMovieEdit: (state, action) => {
             state.dataMovieEdit = action.payload;
         },
-        clearMovieEditData: (state) => {
+        clearDataMovieEdit: (state) => {
             state.dataMovieEdit = {};
         },
     },
@@ -40,6 +40,6 @@ const movieSlice = createSlice({
     },
 });
 
-export const { setMovieEditData, clearMovieEditData } = movieSlice.actions;
+export const { setDataMovieEdit, clearDataMovieEdit } = movieSlice.actions;
 
 export default movieSlice.reducer;

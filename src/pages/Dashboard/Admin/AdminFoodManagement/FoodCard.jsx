@@ -1,5 +1,5 @@
 import { useDispatch } from "react-redux";
-import { setFoodEditData } from "~/redux/slice/foodSlice";
+import { setDataFoodEdit } from "~/redux/slice/foodSlice";
 import { formatVND, getFileNameFromPath } from "~/utils/helper";
 import { deleteFoodAPI } from "~/apis";
 import { toast } from "react-toastify";
@@ -17,7 +17,7 @@ function FoodCard({ foodInfo, setIsOpenFoodModal, handleFetchFoods }) {
 
     const handleEditFood = async (foodInfo) => {
         console.log("handle Edit Food: ", foodInfo);
-        dispatch(setFoodEditData(foodInfo));
+        dispatch(setDataFoodEdit(foodInfo));
         setIsOpenFoodModal(true);
     };
 

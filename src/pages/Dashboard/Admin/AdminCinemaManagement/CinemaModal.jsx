@@ -1,10 +1,9 @@
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { useForm, Controller } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
-import { clearDataFoodEdit } from "~/redux/slice/foodSlice";
-import { formatVND } from "~/utils/helper";
+import { clearDataCinemaEdit } from "~/redux/slice/cinemaSlice";
 import { toast } from "react-toastify";
-import { createNewFoodAPI, updateFoodAPI } from "~/apis";
+import { createNewCinemaAPI, updateCinemaAPI } from "~/apis";
 import Modal from "@mui/material/Modal";
 import TextField from "@mui/material/TextField";
 import Grid from "@mui/material/Grid";
@@ -20,7 +19,7 @@ import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import Box from "@mui/material/Box";
 import _ from "lodash";
 
-const styleFoodModal = {
+const styleCinemaModal = {
     position: "absolute",
     top: "48%",
     left: "50%",
@@ -33,11 +32,9 @@ const styleFoodModal = {
     p: 4,
 };
 
-function FoodModal({ isOpenFoodModal, setIsOpenFoodModal, handleFetchFoods }) {
-    const [displayPrice, setDisplayPrice] = useState("");
-    const [hasError, setHasError] = useState(false);
+function CinemaModal({ isOpenCinemaModal, setIsOpenCinemaModal, handleFetchCinemas }) {
     const dispatch = useDispatch();
-    const dataFoodEdit = useSelector((state) => state.food.dataFoodEdit);
+    const dataCinemaEdit = useSelector((state) => state.cinema.dataCinemaEdit);
     const {
         register,
         handleSubmit,
@@ -45,86 +42,56 @@ function FoodModal({ isOpenFoodModal, setIsOpenFoodModal, handleFetchFoods }) {
         control,
         watch,
         reset,
-        setValue,
-        getValues,
     } = useForm({});
     const file = watch("image");
 
     useEffect(() => {
         reset({
-            foodName: dataFoodEdit.foodName || "",
-            price: dataFoodEdit.price || "",
-            description: dataFoodEdit.description || "",
-            image: dataFoodEdit.image || null,
-            image_old: dataFoodEdit.image || null,
+            cinemaName: dataCinemaEdit.cinemaName || "",
+            totalRooms: dataCinemaEdit.totalRooms || null,
+            address: dataCinemaEdit.address || "",
+            hotline: dataCinemaEdit.hotline || null,
+            image: dataCinemaEdit.image || null,
+            image_old: dataCinemaEdit.image || null,
         });
-        if (dataFoodEdit.price) {
-            setDisplayPrice(formatVND(dataFoodEdit.price));
-        }
-    }, [dataFoodEdit]);
+    }, [dataCinemaEdit]);
 
-    const handlePriceChange = (event) => {
-        let rawValue = event.target.value;
-        if (rawValue.length > 1) {
-            if (!rawValue.includes("đ") || !rawValue.includes(" ")) {
-                rawValue = rawValue.replace(/[.\sđ]/g, "");
-                rawValue = rawValue.substring(0, rawValue.length - 1);
-            } else {
-                rawValue = rawValue.replace(/[.\sđ]/g, "");
-            }
-        }
-        setDisplayPrice(formatVND(rawValue));
-        setValue("price", rawValue);
-    };
-
-    const handleCloseFoodModal = () => {
-        setIsOpenFoodModal(false);
-        setDisplayPrice("");
-        if (!_.isEmpty(dataFoodEdit)) {
-            dispatch(clearDataFoodEdit());
+    const handleCloseCinemaModal = () => {
+        setIsOpenCinemaModal(false);
+        if (!_.isEmpty(dataCinemaEdit)) {
+            dispatch(clearDataCinemaEdit());
         }
     };
 
-    const handleSubmitFoodForm = async (foodData) => {
-        console.log("submit data: ", foodData);
-        console.log("dataFoodEdit: ", dataFoodEdit);
-        const priceValue = getValues("price");
-        if (!priceValue) {
-            setHasError(true);
-            return;
-        } else {
-            setHasError(false);
-        }
-
-        if (_.isEmpty(dataFoodEdit)) {
-            // create new food
-            delete foodData.image_old;
-            let result = await createNewFoodAPI(foodData);
+    const handleSubmitCinemaForm = async (cinemaData) => {
+        console.log("Data cinema submit: ", cinemaData);
+        if (_.isEmpty(dataCinemaEdit)) {
+            // create new cinema
+            delete cinemaData.image_old;
+            let result = await createNewCinemaAPI(cinemaData);
             if (result && result.status === 201) {
-                toast.success("Tạo đồ ăn mới thành công!");
-                dispatch(clearDataFoodEdit());
+                toast.success("Tạo rạp chiếu phim thành công!");
+                dispatch(clearDataCinemaEdit());
             }
         } else {
-            // update food
-            foodData.id = dataFoodEdit.id;
-            console.log("Check foodData update: ", foodData);
-            let result = await updateFoodAPI(foodData);
+            // update cinema
+            cinemaData.id = dataCinemaEdit.id;
+            let result = await updateCinemaAPI(cinemaData);
             if (result && result.status === 200) {
-                toast.success("Cập nhật thông tin đồ ăn thành công!");
-                dispatch(clearDataFoodEdit());
+                toast.success("Cập nhật thông tin rạp chiếu phim thành công!");
+                dispatch(clearDataCinemaEdit());
             }
         }
-        setDisplayPrice("");
-        handleFetchFoods();
-        setIsOpenFoodModal(false);
+        handleFetchCinemas();
+        setIsOpenCinemaModal(false);
     };
 
     return (
         <Modal
             aria-labelledby="transition-modal-title"
             aria-describedby="transition-modal-description"
-            open={isOpenFoodModal}
-            onClose={handleCloseFoodModal}
+            open={isOpenCinemaModal}
+            onClose={handleCloseCinemaModal}
             closeAfterTransition
             slots={{ backdrop: Backdrop }}
             slotProps={{
@@ -133,11 +100,11 @@ function FoodModal({ isOpenFoodModal, setIsOpenFoodModal, handleFetchFoods }) {
                 },
             }}
         >
-            <Fade in={isOpenFoodModal}>
-                <Box sx={styleFoodModal}>
+            <Fade in={isOpenCinemaModal}>
+                <Box sx={styleCinemaModal}>
                     <IconButton
                         aria-label="close"
-                        onClick={handleCloseFoodModal}
+                        onClick={handleCloseCinemaModal}
                         sx={{
                             position: "absolute",
                             top: 8,
@@ -155,57 +122,68 @@ function FoodModal({ isOpenFoodModal, setIsOpenFoodModal, handleFetchFoods }) {
                         mb={3}
                         fontWeight={600}
                     >
-                        {_.isEmpty(dataFoodEdit) ? "Thêm mới dồ ăn" : "Chỉnh sửa đồ ăn"}
+                        {_.isEmpty(dataCinemaEdit) ? "Thêm rạp phim mới" : "Chỉnh sửa rạp phim"}
                     </Typography>
 
-                    <form onSubmit={handleSubmit(handleSubmitFoodForm)}>
+                    <form onSubmit={handleSubmit(handleSubmitCinemaForm)}>
                         <Grid container rowSpacing={2.5} columnSpacing={3}>
                             <Grid item xs={8}>
                                 <TextField
                                     autoFocus
                                     fullWidth
-                                    label="Tên đồ ăn*"
+                                    label="Tên rạp chiếu*"
                                     type="text"
                                     variant="outlined"
                                     size="small"
-                                    error={!!errors.foodName}
-                                    {...register("foodName", {
-                                        required: "Tên đồ ăn không được để trống!",
+                                    error={!!errors.cinemaName}
+                                    {...register("cinemaName", {
+                                        required: "Tên rạp chiếu không được để trống!",
                                     })}
-                                    helperText={errors.foodName?.message}
+                                    helperText={errors.cinemaName?.message}
                                 />
                             </Grid>
 
                             <Grid item xs={4}>
                                 <TextField
                                     fullWidth
-                                    label="Giá tiền*"
-                                    type="text"
+                                    label="Số phòng*"
+                                    type="number"
                                     variant="outlined"
                                     size="small"
-                                    value={displayPrice}
-                                    onChange={handlePriceChange}
-                                    error={hasError}
+                                    error={!!errors.totalRooms}
+                                    {...register("totalRooms", {
+                                        required: "Mô tả không được để trống!",
+                                    })}
+                                    helperText={errors.totalRooms?.message}
                                 />
-                                {hasError && (
-                                    <FormHelperText error>
-                                        Giá tiền không được để trống
-                                    </FormHelperText>
-                                )}
                             </Grid>
-
                             <Grid item xs={8}>
                                 <TextField
                                     fullWidth
-                                    label="Mô tả*"
+                                    label="Địa chỉ*"
                                     type="text"
                                     variant="outlined"
                                     size="small"
-                                    error={!!errors.description}
-                                    {...register("description", {
-                                        required: "Mô tả không được để trống!",
+                                    error={!!errors.address}
+                                    {...register("address", {
+                                        required: "Địa chỉ không được để trống!",
                                     })}
-                                    helperText={errors.description?.message}
+                                    helperText={errors.address?.message}
+                                />
+                            </Grid>
+
+                            <Grid item xs={4}>
+                                <TextField
+                                    fullWidth
+                                    label="Hotline*"
+                                    type="text"
+                                    variant="outlined"
+                                    size="small"
+                                    error={!!errors.hotline}
+                                    {...register("hotline", {
+                                        required: "Số hotline không được để trống!",
+                                    })}
+                                    helperText={errors.hotline?.message}
                                 />
                             </Grid>
 
@@ -257,14 +235,14 @@ function FoodModal({ isOpenFoodModal, setIsOpenFoodModal, handleFetchFoods }) {
                             <Button
                                 variant="contained"
                                 color="secondary"
-                                onClick={handleCloseFoodModal}
+                                onClick={handleCloseCinemaModal}
                                 sx={{
                                     px: 3,
                                 }}
                             >
                                 Hủy
                             </Button>
-                            {_.isEmpty(dataFoodEdit) ? (
+                            {_.isEmpty(dataCinemaEdit) ? (
                                 <Button type="submit" variant="contained" color="primary">
                                     Thêm mới
                                 </Button>
@@ -281,4 +259,4 @@ function FoodModal({ isOpenFoodModal, setIsOpenFoodModal, handleFetchFoods }) {
     );
 }
 
-export default FoodModal;
+export default CinemaModal;

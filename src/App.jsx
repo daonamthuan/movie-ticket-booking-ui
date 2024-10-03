@@ -9,6 +9,7 @@ import AdminMovieManagement from "./pages/Dashboard/Admin/AdminMovieManagement/A
 import AdminBookingManagement from "./pages/Dashboard/Admin/AdminBookingManagement/AdminBookingManagement";
 import AdminFoodManagement from "./pages/Dashboard/Admin/AdminFoodManagement/AdminFoodManagement";
 import AdminScheduleManagement from "./pages/Dashboard/Admin/AdminScheduleManagement/AdminScheduleManagement";
+import AdminCinemaManagement from "./pages/Dashboard/Admin/AdminCinemaManagement/AdminCinemaManagement";
 
 const ProtectedRoutes = () => {
     const user = JSON.parse(localStorage.getItem("userInfo"));
@@ -47,6 +48,7 @@ function App() {
                     <Route path="tickets" element={<AdminBookingManagement />} />
                     <Route path="schedules" element={<AdminScheduleManagement />} />
                     <Route path="foods" element={<AdminFoodManagement />} />
+                    <Route path="cinemas" element={<AdminCinemaManagement />} />
                 </Route>
             </Route>
         </Routes>

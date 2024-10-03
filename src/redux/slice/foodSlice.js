@@ -10,15 +10,15 @@ const foodSlice = createSlice({
     name: "food",
     initialState,
     reducers: {
-        setFoodEditData: (state, action) => {
+        setDataFoodEdit: (state, action) => {
             state.dataFoodEdit = action.payload;
         },
-        clearFoodEditData: (state) => {
+        clearDataFoodEdit: (state) => {
             state.dataFoodEdit = {};
         },
     },
 });
 
-export const { setFoodEditData, clearFoodEditData } = foodSlice.actions;
+export const { setDataFoodEdit, clearDataFoodEdit } = foodSlice.actions;
 
 export default foodSlice.reducer;
