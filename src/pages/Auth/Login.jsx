@@ -7,9 +7,9 @@ import Zoom from "@mui/material/Zoom";
 import Alert from "@mui/material/Alert";
 import { useForm } from "react-hook-form";
 import CineFastLogo from "~/assets/cinefast-logo.png";
-import authorizedAxiosInstance from "~/utils/authorizedAxios";
 import { useNavigate } from "react-router-dom";
 import Box from "@mui/material/Box";
+import { handleLoginAPI } from "~/apis";
 
 function Login() {
     const {
@@ -29,7 +29,7 @@ function Login() {
     });
 
     const submitLogIn = async (data) => {
-        const res = await authorizedAxiosInstance.post(`/users/login`, data);
+        const res = await handleLoginAPI(data);
 
         console.log("Response submit data: ", res.data);
         const userInfo = {

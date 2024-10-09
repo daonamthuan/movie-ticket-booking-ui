@@ -1,5 +1,9 @@
 import authorizedAxiosInstance from "~/utils/authorizedAxios";
 
+export const handleLoginAPI = async (data) => {
+    return await authorizedAxiosInstance.post(`/users/login`, data);
+};
+
 export const handleLogoutAPI = async () => {
     localStorage.removeItem("userInfo");
 
@@ -62,7 +66,7 @@ export const updateUserAPI = async (data) => {
     });
 };
 
-export const deleteUserAPI = async (userId, publicId) => {
+export const deleteUserAPI = async (userId, publicId = "") => {
     return await authorizedAxiosInstance.delete(
         `/users/delete-user?userId=${userId}&publicId=${publicId}`
     );

@@ -51,6 +51,7 @@ function Dashboard() {
             case "cinemas":
                 navigate("/dashboard/cinemas");
                 break;
+
             default:
                 navigate("/dashboard/movies");
                 break;

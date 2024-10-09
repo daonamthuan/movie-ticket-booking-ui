@@ -126,3 +126,20 @@ export const deleteCinemaAPI = async (cinemaId, publicId) => {
         `/dashboards/delete-cinema?cinemaId=${cinemaId}&publicId=${publicId}`
     );
 };
+
+// Rooms
+export const getCinemaInfoByIdAPI = async (cinemaId) => {
+    return await authorizedAxiosInstance.get(`/dashboards/get-cinema-by-id/${cinemaId}`);
+};
+
+export const createNewRoomAPI = async (roomData) => {
+    return await authorizedAxiosInstance.post("/dashboards/create-new-room", roomData);
+};
+
+export const updateRoomAPI = async (roomData) => {
+    return await authorizedAxiosInstance.put("/dashboards/update-room", roomData);
+};
+
+export const deleteRoomAPI = async (roomId) => {
+    return await authorizedAxiosInstance.delete(`dashboards/delete-room/${roomId}`);
+};

@@ -122,8 +122,14 @@ function TableUser({ setIsOpenUserModal, setIsCreateNewUser, setDataUserEdit }) 
     };
 
     const handleDeleteUser = async (userData) => {
-        let publicId = getFileNameFromPath(userData.image);
-        let response = await deleteUserAPI(userData.id, publicId);
+        let response = null;
+        if (userData.image) {
+            let publicId = getFileNameFromPath(userData.image);
+            response = await deleteUserAPI(userData.id, publicId);
+        } else {
+            response = await deleteUserAPI(userData.id);
+        }
+
         if (response && response.status === 200) {
             toast.success("Xóa người dùng thành công!");
             fetchUsersData();
@@ -131,7 +137,7 @@ function TableUser({ setIsOpenUserModal, setIsCreateNewUser, setDataUserEdit }) 
     };
 
     return (
-        <Box sx={{ height: "500.5px", width: "100%", margin: "0 auto" }}>
+        <Box sx={{ width: "100%", margin: "0 auto" }}>
             <DataGrid
                 rows={users}
                 columns={columns}
@@ -143,7 +149,6 @@ function TableUser({ setIsOpenUserModal, setIsCreateNewUser, setDataUserEdit }) 
                         },
                     },
                 }}
-                pageSizeOptions={[5, 10]}
                 disableRowSelectionOnClick
                 sx={{
                     "& .MuiDataGrid-columnHeaders": {

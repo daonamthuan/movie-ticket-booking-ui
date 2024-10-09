@@ -1,4 +1,5 @@
 import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { setDataCinemaEdit } from "~/redux/slice/cinemaSlice";
 import { deleteCinemaAPI } from "~/apis";
 import { getFileNameFromPath } from "~/utils/helper";
@@ -16,10 +17,10 @@ import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 
 function CinemaCard({ cinemaInfo, setIsOpenCinemaModal, handleFetchCinemas }) {
+    const navigate = useNavigate();
     const dispatch = useDispatch();
 
     const handleEditCinema = async (cinemaInfo) => {
-        console.log("handle Edit Cinema: ", cinemaInfo);
         dispatch(setDataCinemaEdit(cinemaInfo));
         setIsOpenCinemaModal(true);
     };
@@ -31,6 +32,11 @@ function CinemaCard({ cinemaInfo, setIsOpenCinemaModal, handleFetchCinemas }) {
             toast.success("Xóa rạp chiếu phim thành công!");
             handleFetchCinemas();
         }
+    };
+
+    const handleNavigateToRoom = (cinemaId) => {
+        console.log("Navigate to room: ", cinemaId);
+        navigate(`/dashboard/rooms?cinemaId=${cinemaId}`);
     };
 
     return (
@@ -58,7 +64,12 @@ function CinemaCard({ cinemaInfo, setIsOpenCinemaModal, handleFetchCinemas }) {
                 </CardContent>
             </CardActionArea>
             <CardActions sx={{ display: "flex", justifyContent: "space-between", px: 2, pt: 0 }}>
-                <Button size="small" color="primary" sx={{ px: 0 }}>
+                <Button
+                    size="small"
+                    color="primary"
+                    onClick={() => handleNavigateToRoom(cinemaInfo.id)}
+                    sx={{ px: 0 }}
+                >
                     Xem chi tiết
                 </Button>
                 <Box
