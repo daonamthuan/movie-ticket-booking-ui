@@ -15,6 +15,7 @@ import DiscountOutlinedIcon from "@mui/icons-material/DiscountOutlined";
 import AssessmentOutlinedIcon from "@mui/icons-material/AssessmentOutlined";
 import CineFastLogo from "~/assets/cinefast-logo.png";
 import Box from "@mui/material/Box";
+import { width } from "@mui/system";
 
 const listItemButtonTheme = createTheme({
     components: {
@@ -64,7 +65,7 @@ function Sidebar({ selectedOption, handleListItemClick }) {
                         pt: 2,
                     }}
                 >
-                    <img src={CineFastLogo} width="180px" />
+                    <img src={CineFastLogo} style={{ width: "180px" }} />
                 </Box>
                 <List sx={{ minWidth: 250, flexGrow: 1, maxWidth: 350, px: 1.5 }} component="nav">
                     <ThemeProvider theme={listItemButtonTheme}>

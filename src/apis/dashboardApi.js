@@ -129,7 +129,13 @@ export const deleteCinemaAPI = async (cinemaId, publicId) => {
 
 // Rooms
 export const getCinemaInfoByIdAPI = async (cinemaId) => {
-    return await authorizedAxiosInstance.get(`/dashboards/get-cinema-by-id/${cinemaId}`);
+    return await authorizedAxiosInstance.get(`/dashboards/get-cinema-info-by-id/${cinemaId}`);
+};
+
+export const getAllRoomsByCinemaIdAPI = async (cinemaId) => {
+    return await authorizedAxiosInstance.get(
+        `/dashboards/get-all-rooms-by-cinema-id?cinemaId=${cinemaId}`
+    );
 };
 
 export const createNewRoomAPI = async (roomData) => {
@@ -142,4 +148,21 @@ export const updateRoomAPI = async (roomData) => {
 
 export const deleteRoomAPI = async (roomId) => {
     return await authorizedAxiosInstance.delete(`dashboards/delete-room/${roomId}`);
+};
+
+// schedules
+export const fetchSchedulesDataAPI = async () => {
+    return await authorizedAxiosInstance.get("/dashboards/get-all-schedules");
+};
+
+export const createNewScheduleAPI = async (scheduleData) => {
+    return await authorizedAxiosInstance.post("/dashboards/create-new-schedule", scheduleData);
+};
+
+export const updateScheduleAPI = async (scheduleData) => {
+    return await authorizedAxiosInstance.put("/dashboards/update-schedule", scheduleData);
+};
+
+export const deleteScheduleAPI = async (scheduleId) => {
+    return await authorizedAxiosInstance.delete(`/dashboards/delete-schedule/${scheduleId}`);
 };

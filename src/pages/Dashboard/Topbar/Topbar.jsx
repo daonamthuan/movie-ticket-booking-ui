@@ -52,7 +52,7 @@ function Topbar() {
             sx={{
                 display: "flex",
                 justifyContent: "space-between",
-                flexGrow: 1,
+                width: "100%",
                 height: "70px",
                 borderRadius: "5px",
                 py: 2,

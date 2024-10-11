@@ -44,10 +44,10 @@ function App() {
                 {/* <Outlet /> của react-router-dom sẽ chạy vào các Child Route trong này */}
                 <Route path="/dashboard" element={<Dashboard />}>
                     <Route path="overview" element={<AdminOverview />} />
+                    <Route path="schedules" element={<AdminScheduleManagement />} />
                     <Route path="users" element={<AdminUserManagement />} />
                     <Route path="movies" element={<AdminMovieManagement />} />
                     <Route path="tickets" element={<AdminBookingManagement />} />
-                    <Route path="schedules" element={<AdminScheduleManagement />} />
                     <Route path="foods" element={<AdminFoodManagement />} />
                     <Route path="cinemas" element={<AdminCinemaManagement />} />
                     <Route path="rooms" element={<AdminRoomManagement />} />

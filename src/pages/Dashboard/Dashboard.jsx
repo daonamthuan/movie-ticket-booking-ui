@@ -5,18 +5,12 @@ import Typography from "@mui/material/Typography";
 import CircularProgress from "@mui/material/CircularProgress";
 import authorizedAxiosInstance from "~/utils/authorizedAxios";
 import Sidebar from "./Sidebar/Sidebar";
-import AdminOverview from "./Admin/AdminOverview/AdminOverview";
-import AdminScheduleManagement from "./Admin/AdminScheduleManagement/AdminScheduleManagement";
-import AdminBookingManagement from "./Admin/AdminBookingManagement/AdminBookingManagement";
-import AdminMovieManagement from "./Admin/AdminMovieManagement/AdminMovieManagement";
-import AdminFoodManagement from "./Admin/AdminFoodManagement/AdminFoodManagement";
-import AdminUserManagement from "./Admin/AdminUserManagement/AdminUserManagement";
 import Topbar from "./Topbar/Topbar";
 import Box from "@mui/material/Box";
 
 function Dashboard() {
     const [user, setUser] = useState(null);
-    const [selectedOption, setSelectedOption] = useState("cinemas");
+    const [selectedOption, setSelectedOption] = useState("schedules");
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -25,7 +19,7 @@ function Dashboard() {
             setUser(res.data);
         };
         fetchData();
-        navigate("/dashboard/cinemas");
+        navigate("/dashboard/schedules");
     }, []);
 
     const handleListItemClick = (option) => {

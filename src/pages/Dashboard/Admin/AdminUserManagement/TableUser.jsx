@@ -51,7 +51,7 @@ function TableUser({ setIsOpenUserModal, setIsCreateNewUser, setDataUserEdit }) 
         {
             field: "gender",
             headerName: "Giới tính",
-            width: 80,
+            width: 90,
             renderCell: (params) => {
                 const gender = genders.find((gender) => gender.keyCode === params.value);
                 return gender.value;
@@ -141,7 +141,7 @@ function TableUser({ setIsOpenUserModal, setIsCreateNewUser, setDataUserEdit }) 
             <DataGrid
                 rows={users}
                 columns={columns}
-                rowHeight={39}
+                rowHeight={38}
                 initialState={{
                     pagination: {
                         paginationModel: {

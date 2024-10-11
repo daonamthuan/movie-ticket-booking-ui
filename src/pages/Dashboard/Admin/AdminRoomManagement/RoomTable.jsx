@@ -1,4 +1,3 @@
-import { useState, useEffect } from "react";
 import { DataGrid } from "@mui/x-data-grid";
 import Box from "@mui/material/Box";
 import IconButton from "@mui/material/IconButton";
@@ -144,14 +143,12 @@ function RoomTable({ rooms, setIsOpenRoomModal, handleFetchCinemaInfo }) {
         }
     };
 
-    console.log("Check render table room");
-
     return (
         <Box sx={{ width: "100%", margin: "0 auto" }}>
             <DataGrid
                 rows={rooms}
                 columns={columns}
-                rowHeight={50}
+                rowHeight={45}
                 initialState={{
                     pagination: {
                         paginationModel: {

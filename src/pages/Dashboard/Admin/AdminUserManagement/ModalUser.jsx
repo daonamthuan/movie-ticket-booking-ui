@@ -46,6 +46,7 @@ function ModalUser({
     dataUserEdit,
     setDataUserEdit,
 }) {
+    const { genders, roles, memberships } = useSelector((state) => state.user);
     const {
         register,
         handleSubmit,
@@ -56,10 +57,8 @@ function ModalUser({
     } = useForm({});
     const file = watch("image");
 
-    const { genders, roles, memberships } = useSelector((state) => state.user);
-
     useEffect(() => {
-        console.log("useEffect DataUserEdit: ", dataUserEdit);
+        console.log("Check dataUserEdit: ", dataUserEdit);
         reset({
             email: dataUserEdit.email || "",
             password: dataUserEdit.email || "",
@@ -274,6 +273,7 @@ function ModalUser({
                                             >
                                                 {roles &&
                                                     roles.map((role, index) => {
+                                                        console.log("Role: ", role);
                                                         return (
                                                             <MenuItem
                                                                 key={index}
