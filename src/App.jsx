@@ -3,6 +3,9 @@ import Login from "~/pages/Auth/Login";
 import Dashboard from "~/pages/Dashboard/Dashboard";
 import { useNavigate } from "react-router-dom";
 import { setNavigate } from "~/utils/authorizedAxios";
+import HomePage from "./pages/User/HomePage/HomePage";
+import MovieDetail from "./pages/User/MovieDetail/MovieDetail";
+import StaffScheduleManagement from "./pages/Staff/StaffScheduleManagement/StaffScheduleManagement";
 import AdminOverview from "./pages/Dashboard/Admin/AdminOverview/AdminOverview";
 import AdminUserManagement from "./pages/Dashboard/Admin/AdminUserManagement/AdminUserManagement";
 import AdminMovieManagement from "./pages/Dashboard/Admin/AdminMovieManagement/AdminMovieManagement";
@@ -12,35 +15,49 @@ import AdminScheduleManagement from "./pages/Dashboard/Admin/AdminScheduleManage
 import AdminCinemaManagement from "./pages/Dashboard/Admin/AdminCinemaManagement/AdminCinemaManagement";
 import AdminRoomManagement from "./pages/Dashboard/Admin/AdminRoomManagement/AdminRoomManagement";
 
-const ProtectedRoutes = () => {
+const AdminRoutes = () => {
     const user = JSON.parse(localStorage.getItem("userInfo"));
-    if (!user) return <Navigate to="/login" replace={true} />;
+    if (!user || user.role !== "ADMIN") return <Navigate to="/login" replace={true} />;
+
+    return <Outlet />;
+};
+
+const StaffRoutes = () => {
+    const user = JSON.parse(localStorage.getItem("userInfo"));
+    if (!user || user.role !== "STAFF") return <Navigate to="/login" replace={true} />;
 
     return <Outlet />;
 };
 
 const UnauthorizedRoutes = () => {
     const user = JSON.parse(localStorage.getItem("userInfo"));
-    if (user) return <Navigate to="/dashboard" replace={true} />;
+    if (user && user.role === "ADMIN") return <Navigate to="/dashboard" replace={true} />;
+    if (user && user.role === "STAFF") return <Navigate to="/staff" replace={true} />;
+    if (user && user.role === "CUSTOMER") return <Navigate to="/home" replace={true} />;
 
     return <Outlet />;
 };
 
 function App() {
     const navigate = useNavigate();
-
     // Inject navigate from React JSX into authorizedAxios.js
     setNavigate(navigate);
 
     return (
         <Routes>
-            <Route path="/" element={<Navigate to="/login" replace={true} />} />
+            <Route path="/" element={<HomePage />} />
+            <Route path="/home" element={<HomePage />} />
+            <Route path="/movie-detail/:movieId" element={<MovieDetail />} />
 
             <Route element={<UnauthorizedRoutes />}>
                 <Route path="/login" element={<Login />} />
             </Route>
 
-            <Route element={<ProtectedRoutes />}>
+            <Route element={<StaffRoutes />}>
+                <Route path="/staff" element={<StaffScheduleManagement />} />
+            </Route>
+
+            <Route element={<AdminRoutes />}>
                 {/* <Outlet /> của react-router-dom sẽ chạy vào các Child Route trong này */}
                 <Route path="/dashboard" element={<Dashboard />}>
                     <Route path="overview" element={<AdminOverview />} />

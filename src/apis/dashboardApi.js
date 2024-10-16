@@ -9,6 +9,10 @@ export const getAllMoviesByStatusAPI = async (movieStatus) => {
     return await authorizedAxiosInstance.get(`/dashboards/get-all-movies?status=${movieStatus}`);
 };
 
+export const getMovieByIdAPI = async (movieId) => {
+    return await authorizedAxiosInstance.get(`/dashboards/get-movie-by-id/${movieId}`);
+};
+
 export const createNewMovieAPI = async (movieData) => {
     const formData = new FormData();
 
@@ -87,7 +91,7 @@ export const deleteFoodAPI = async (foodId, publicId) => {
 };
 
 // Cinema
-export const fetchCinemasAPI = async () => {
+export const fetchAllCinemasAPI = async () => {
     return await authorizedAxiosInstance.get("/dashboards/get-all-cinemas");
 };
 
@@ -153,6 +157,12 @@ export const deleteRoomAPI = async (roomId) => {
 // schedules
 export const fetchSchedulesDataAPI = async () => {
     return await authorizedAxiosInstance.get("/dashboards/get-all-schedules");
+};
+
+export const getNextThreeDaysScheduleAPI = async (movieId) => {
+    return await authorizedAxiosInstance.get(
+        `/dashboards/get-next-three-days-schedule?movieId=${movieId}`
+    );
 };
 
 export const createNewScheduleAPI = async (scheduleData) => {

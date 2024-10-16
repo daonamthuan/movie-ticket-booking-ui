@@ -6,9 +6,11 @@ import foodReducer from "./slice/foodSlice";
 import cinemaReducer from "./slice/cinemaSlice";
 import roomReducer from "./slice/roomSlice";
 import scheduleReducer from "./slice/scheduleSlice";
+import homeReducer from "./slice/homeSlice";
 
 const rootReducer = combineReducers({
     auth: authReducer,
+    home: homeReducer,
     user: userReducer,
     movie: movieReducer,
     food: foodReducer,

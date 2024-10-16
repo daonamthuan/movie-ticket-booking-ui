@@ -33,17 +33,14 @@ function AdminScheduleManagement() {
     }, []);
 
     useEffect(() => {
-        console.log("Run useEffect 2");
         let newScheduleDataTable = [...schedules];
         if (selectedCinema !== "all") {
             let roomIds = rooms
                 .filter((room) => room.cinemaId === selectedCinema)
                 .map((room) => room.id);
-            console.log("Check roomIds: ", roomIds);
             newScheduleDataTable = newScheduleDataTable.filter((schedule) =>
                 roomIds.includes(schedule.roomId)
             );
-            console.log("Check new data: ", newScheduleDataTable);
         }
 
         if (selectedRoom !== "all") {

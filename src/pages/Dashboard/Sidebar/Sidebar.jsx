@@ -15,7 +15,6 @@ import DiscountOutlinedIcon from "@mui/icons-material/DiscountOutlined";
 import AssessmentOutlinedIcon from "@mui/icons-material/AssessmentOutlined";
 import CineFastLogo from "~/assets/cinefast-logo.png";
 import Box from "@mui/material/Box";
-import { width } from "@mui/system";
 
 const listItemButtonTheme = createTheme({
     components: {

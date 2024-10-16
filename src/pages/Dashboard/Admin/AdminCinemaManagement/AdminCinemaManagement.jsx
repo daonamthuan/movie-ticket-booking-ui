@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { fetchCinemasAPI } from "~/apis";
+import { fetchAllCinemasAPI } from "~/apis";
 import CinemaModal from "./CinemaModal";
 import CinemaCard from "./CinemaCard";
 import Typography from "@mui/material/Typography";
@@ -17,7 +17,7 @@ function AdminCinemaManagement() {
     }, []);
 
     const fetchCinemas = async () => {
-        let response = await fetchCinemasAPI();
+        let response = await fetchAllCinemasAPI();
         setCinemas(response.data);
     };
 

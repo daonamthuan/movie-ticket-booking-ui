@@ -79,9 +79,7 @@ export default function BadgeAvatars() {
                     Admin
                 </Typography>
             </Box>
-            {/* <Button sx={{ p: "2px" }}>
-                <LogoutIcon />
-            </Button> */}
+
             <Box sx={{ m: 0 }}>
                 <IconButton
                     type="button"

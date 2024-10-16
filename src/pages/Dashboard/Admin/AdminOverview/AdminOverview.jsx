@@ -7,7 +7,7 @@ import {
     Tooltip,
     ResponsiveContainer,
 } from "recharts";
-import SummaryCard from "~/components/SummaryCard/SummaryCard";
+import SummaryCard from "~/pages/Dashboard/Admin/AdminOverview/SummaryCard/SummaryCard";
 
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";

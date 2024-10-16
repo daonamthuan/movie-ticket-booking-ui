@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { fetchCinemasAPI, getAllRoomsByCinemaIdAPI, getAllMoviesByStatusAPI } from "~/apis";
+import { fetchAllCinemasAPI, getAllRoomsByCinemaIdAPI, getAllMoviesByStatusAPI } from "~/apis";
 
 const initialState = {
     isLoading: false,
@@ -11,7 +11,7 @@ const initialState = {
 };
 
 export const fetchCinemas = createAsyncThunk("fetchCinemas", async () => {
-    const response = await fetchCinemasAPI();
+    const response = await fetchAllCinemasAPI();
     return response.data;
 });
 

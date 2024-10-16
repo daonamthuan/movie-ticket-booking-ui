@@ -16,30 +16,20 @@ function Login() {
         register,
         handleSubmit,
         formState: { errors },
-        getValues,
     } = useForm();
     const navigate = useNavigate();
 
-    useEffect(() => {
-        console.log("Default value of register: ", getValues());
-    }, []);
-
-    useEffect(() => {
-        console.log("Check render: ", getValues());
-    });
-
     const submitLogIn = async (data) => {
         const res = await handleLoginAPI(data);
+        localStorage.setItem("userInfo", JSON.stringify(res.data));
 
-        console.log("Response submit data: ", res.data);
-        const userInfo = {
-            id: res.data.id,
-            email: res.data.email,
-        };
-
-        localStorage.setItem("userInfo", JSON.stringify(userInfo));
-
-        navigate("/dashboard");
+        if (res.data.role === "ADMIN") {
+            navigate("/dashboard");
+        } else if (res.data.role === "STAFF") {
+            navigate("/staff");
+        } else {
+            navigate("/home");
+        }
     };
 
     return (
