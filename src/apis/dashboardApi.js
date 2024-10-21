@@ -136,6 +136,10 @@ export const getCinemaInfoByIdAPI = async (cinemaId) => {
     return await authorizedAxiosInstance.get(`/dashboards/get-cinema-info-by-id/${cinemaId}`);
 };
 
+export const getRoomByIdAPI = async (roomId) => {
+    return await authorizedAxiosInstance.get(`/dashboards/get-room-by-id/${roomId}`);
+};
+
 export const getAllRoomsByCinemaIdAPI = async (cinemaId) => {
     return await authorizedAxiosInstance.get(
         `/dashboards/get-all-rooms-by-cinema-id?cinemaId=${cinemaId}`
@@ -159,6 +163,10 @@ export const fetchSchedulesDataAPI = async () => {
     return await authorizedAxiosInstance.get("/dashboards/get-all-schedules");
 };
 
+export const getScheduleByIdAPI = async (scheduleId) => {
+    return await authorizedAxiosInstance.get(`/dashboards/get-schedule-by-id/${scheduleId}`);
+};
+
 export const getNextThreeDaysScheduleAPI = async (movieId) => {
     return await authorizedAxiosInstance.get(
         `/dashboards/get-next-three-days-schedule?movieId=${movieId}`
@@ -175,4 +183,9 @@ export const updateScheduleAPI = async (scheduleData) => {
 
 export const deleteScheduleAPI = async (scheduleId) => {
     return await authorizedAxiosInstance.delete(`/dashboards/delete-schedule/${scheduleId}`);
+};
+
+// Voucher
+export const getVoucherByIdAPI = async (voucherId) => {
+    return await authorizedAxiosInstance.get(`/dashboards/get-voucher-by-id/${voucherId}`);
 };

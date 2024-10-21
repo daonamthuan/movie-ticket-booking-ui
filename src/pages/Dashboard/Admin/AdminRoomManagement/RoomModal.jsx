@@ -22,7 +22,7 @@ const styleRoomModal = {
     top: "50%",
     left: "50%",
     transform: "translate(-50%, -50%)",
-    width: 900,
+    width: 1000,
     maxHeight: "90vh",
     overflowY: "auto",
     bgcolor: "background.paper",
@@ -141,9 +141,9 @@ function RoomModal({ cinemaId, isOpenRoomModal, setIsOpenRoomModal, handleFetchC
             case 0:
                 return "#f5f5f5";
             case 1:
-                return "#4eb84e";
+                return "#337ab7";
             case 2:
-                return "#e9053e";
+                return "#ee0000";
         }
     };
 
@@ -318,13 +318,16 @@ function RoomModal({ cinemaId, isOpenRoomModal, setIsOpenRoomModal, handleFetchC
                                                 >
                                                     {getLetterFromIndex(rowIndex)}
                                                 </Typography>
+
                                                 {row.map((seat, colIndex) => (
                                                     <Box
                                                         key={colIndex}
                                                         sx={{
-                                                            width: 30,
-                                                            height: 30,
+                                                            width: 40,
+                                                            height: 28,
+                                                            color: "#f5f5f5",
                                                             backgroundColor: getSeatColor(seat),
+                                                            borderRadius: "5px",
                                                             border: "1px solid #d9d9d9",
                                                             cursor: "pointer",
                                                             display: "flex",
@@ -339,10 +342,23 @@ function RoomModal({ cinemaId, isOpenRoomModal, setIsOpenRoomModal, handleFetchC
                                                         {colIndex + 1}
                                                     </Box>
                                                 ))}
+
+                                                <Typography
+                                                    component="div"
+                                                    sx={{
+                                                        width: "20px",
+                                                        display: "flex",
+                                                        justifyContent: "center",
+                                                        alignItems: "center",
+                                                    }}
+                                                >
+                                                    {getLetterFromIndex(rowIndex)}
+                                                </Typography>
                                             </Box>
                                         ))}
                                 </Box>
 
+                                {/* Ghi chu loai ghe */}
                                 <Box
                                     sx={{
                                         display: "flex",
@@ -364,13 +380,14 @@ function RoomModal({ cinemaId, isOpenRoomModal, setIsOpenRoomModal, handleFetchC
                                             sx={{
                                                 width: 20,
                                                 height: 20,
+                                                borderRadius: "3px",
                                                 border: "1px solid #d9d9d9",
                                                 backgroundColor: "#4eb84e",
                                                 cursor: "pointer",
                                             }}
                                         />
                                         <Typography component="div" fontSize={"14px"}>
-                                            Ghế đơn
+                                            Ghế thường
                                         </Typography>
                                     </Box>
                                     <Box
@@ -385,6 +402,7 @@ function RoomModal({ cinemaId, isOpenRoomModal, setIsOpenRoomModal, handleFetchC
                                             sx={{
                                                 width: 20,
                                                 height: 20,
+                                                borderRadius: "3px",
                                                 border: "1px solid #d9d9d9",
                                                 backgroundColor: "#e9053e",
                                                 cursor: "pointer",
@@ -406,6 +424,7 @@ function RoomModal({ cinemaId, isOpenRoomModal, setIsOpenRoomModal, handleFetchC
                                             sx={{
                                                 width: 20,
                                                 height: 20,
+                                                borderRadius: "3px",
                                                 border: "1px solid #d9d9d9",
                                                 backgroundColor: "##f5f5f5",
                                                 cursor: "pointer",

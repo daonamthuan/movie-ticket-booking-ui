@@ -60,7 +60,6 @@ const ScheduleShowing = React.memo(({ cinema, schedules }) => {
     };
 
     const handleClickSchedule = (scheduleId) => {
-        console.log("Click schedule id: ", scheduleId);
         navigate(`/select-seat?scheduleId=${scheduleId}`);
     };
 
@@ -119,6 +118,7 @@ const ScheduleShowing = React.memo(({ cinema, schedules }) => {
                             ))}
                     </Select>
                 </FormControl>
+
                 <Box sx={{ display: "flex", columnGap: 2, rowGap: 1, flexWrap: "wrap" }}>
                     {schedules && schedules.length > 0 ? (
                         (() => {

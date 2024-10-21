@@ -5,6 +5,8 @@ import { useNavigate } from "react-router-dom";
 import { setNavigate } from "~/utils/authorizedAxios";
 import HomePage from "./pages/User/HomePage/HomePage";
 import MovieDetail from "./pages/User/MovieDetail/MovieDetail";
+import SeatSelection from "./pages/User/SeatSelection/SeatSelection";
+import FoodSelection from "./pages/User/FoodSelection/FoodSelection";
 import StaffScheduleManagement from "./pages/Staff/StaffScheduleManagement/StaffScheduleManagement";
 import AdminOverview from "./pages/Dashboard/Admin/AdminOverview/AdminOverview";
 import AdminUserManagement from "./pages/Dashboard/Admin/AdminUserManagement/AdminUserManagement";
@@ -48,6 +50,8 @@ function App() {
             <Route path="/" element={<HomePage />} />
             <Route path="/home" element={<HomePage />} />
             <Route path="/movie-detail/:movieId" element={<MovieDetail />} />
+            <Route path="/select-seat" element={<SeatSelection />} />
+            <Route path="/select-food" element={<FoodSelection />} />
 
             <Route element={<UnauthorizedRoutes />}>
                 <Route path="/login" element={<Login />} />

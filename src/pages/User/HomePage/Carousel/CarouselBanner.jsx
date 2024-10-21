@@ -19,6 +19,10 @@ function CarouselBanner(props) {
             image: "https://res.cloudinary.com/dquwkvuyh/image/upload/v1728752959/ybblerxvw0ppikypw3y7.jpg",
             description: "Quỷ ăn tạng",
         },
+        {
+            image: "https://res.cloudinary.com/dquwkvuyh/image/upload/v1729505765/tnbgxwthlhymidkm3hcs.jpg",
+            description: "Venom: Kèo cuối",
+        },
     ];
 
     return (
