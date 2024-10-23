@@ -23,6 +23,10 @@ function CarouselBanner(props) {
             image: "https://res.cloudinary.com/dquwkvuyh/image/upload/v1729505765/tnbgxwthlhymidkm3hcs.jpg",
             description: "Venom: Kèo cuối",
         },
+        {
+            image: "https://res.cloudinary.com/dquwkvuyh/image/upload/v1729708202/ncc4ff3kqltfglaetzpv.jpg",
+            description: "The Substance",
+        },
     ];
 
     return (

@@ -1,6 +1,6 @@
 import { useSearchParams } from "react-router-dom";
 import { useState, useEffect } from "react";
-import { getScheduleByIdAPI, getMovieByIdAPI, getRoomByIdAPI } from "~/apis";
+import { getScheduleByIdAPI, getMovieByIdAPI, getRoomByIdAPI, getAllBookedSeatsAPI } from "~/apis";
 import Navbar from "~/components/Navbar/Navbar";
 import SeatMap from "./SeatMap/SeatMap";
 import SeatBookingInfo from "./SeatBookingInfo/SeatBookingInfo";
@@ -24,11 +24,25 @@ function SeatSelection() {
     const fetchRoomAndMovie = async () => {
         let scheduleResponse = await getScheduleByIdAPI(scheduleId);
         let movieResponse = await getMovieByIdAPI(scheduleResponse.data.movieId);
-        let roomResponse = await getRoomByIdAPI(scheduleResponse.data.roomId);
 
         setSchedule(scheduleResponse.data);
         setMovie(movieResponse.data);
-        setRoom(roomResponse.data);
+
+        let roomResponse = await getRoomByIdAPI(scheduleResponse.data.roomId);
+        let bookedSeatResponse = await getAllBookedSeatsAPI(scheduleId);
+
+        let seatMap = JSON.parse(roomResponse.data.seatMap);
+        let bookedSeatsPosition = bookedSeatResponse.data.map((seat) =>
+            JSON.parse(seat.seatPosition)
+        );
+        bookedSeatsPosition.forEach(([rowIndex, colIndex]) => {
+            seatMap[rowIndex][colIndex] = 3;
+        });
+
+        console.log("Check booked seat: ", bookedSeatsPosition);
+        console.log("Check seatMap: ", seatMap);
+
+        setRoom({ ...roomResponse.data, seatMap: seatMap });
     };
 
     const handleSetSelectedSeats = (rowIndex, colIndex, type, seatName) => {
@@ -53,7 +67,7 @@ function SeatSelection() {
         setSelectedSeats(copySelectedSeats);
     };
 
-    console.log("Check selected seats: ", selectedSeats);
+    console.log("Check room render: ", room);
 
     return (
         <Box sx={{ bgcolor: "#f8f8f8" }}>
@@ -319,7 +333,7 @@ function SeatSelection() {
                 >
                     {room && (
                         <SeatMap
-                            seatMap={JSON.parse(room.seatMap)}
+                            seatMap={room.seatMap}
                             selectedSeats={selectedSeats}
                             handleSetSelectedSeats={handleSetSelectedSeats}
                         />

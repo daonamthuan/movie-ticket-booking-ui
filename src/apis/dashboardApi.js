@@ -211,3 +211,10 @@ export const updatePaymentCancelledAPI = async (bookingId) => {
 export const updateBookingAPI = async (bookingData) => {
     return await authorizedAxiosInstance.put(`/dashboards/update-booking`, bookingData);
 };
+
+// Seat_Booking
+export const getAllBookedSeatsAPI = async (scheduleId) => {
+    return await authorizedAxiosInstance.get(
+        `/dashboards/get-all-booked-seats?scheduleId=${scheduleId}`
+    );
+};

@@ -3,6 +3,16 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 
 function SeatMap({ seatMap, selectedSeats, handleSetSelectedSeats }) {
+    // const [bookedSeats, setBookedSeats] = useState([]);
+
+    // useEffect(() => {
+    //     const fetchBookedSeats = async () => {
+    //         let response = await getAllBookedSeatsAPI(scheduleId);
+    //         setBookedSeats(response.data);
+    //     };
+    //     fetchBookedSeats();
+    // }, []);
+
     const getLetterFromIndex = (index) => {
         return String.fromCharCode(65 + index);
     };
@@ -15,6 +25,8 @@ function SeatMap({ seatMap, selectedSeats, handleSetSelectedSeats }) {
                 return "#ffffff";
             case 2:
                 return "#ff9fcf";
+            case 3:
+                return "#d8d8d8";
         }
     };
 
@@ -25,55 +37,6 @@ function SeatMap({ seatMap, selectedSeats, handleSetSelectedSeats }) {
             if (rowData[i] !== 0) count += 1;
         }
     };
-
-    // const renderSeatRow = (rowIndex, rowData) => {
-    //     let count = 1;
-
-    //     return rowData.map((seatValue, colIndex) =>
-    //         seatValue !== 0 ? (
-    //             <Box
-    //                 key={colIndex}
-    //                 sx={{
-    //                     width: 40,
-    //                     height: 28,
-    //                     color: "#337ab7",
-    //                     backgroundColor: getSeatColor(seatValue),
-    //                     borderRadius: "5px",
-    //                     border: "1px solid #d9d9d9",
-    //                     cursor: "pointer",
-    //                     display: "flex",
-    //                     justifyContent: "center",
-    //                     alignItems: "center",
-    //                     fontSize: "14px",
-    //                 }}
-    //                 onClick={() =>
-    //                     handleSetSelectedSeats(
-    //                         rowIndex,
-    //                         colIndex,
-    //                         seatValue,
-    //                         getLetterFromIndex(rowIndex) + getSeatColNumber(rowData, colIndex)
-    //                     )
-    //                 }
-    //             >
-    //                 {count++}
-    //             </Box>
-    //         ) : (
-    //             <Box
-    //                 key={colIndex}
-    //                 sx={{
-    //                     width: 40,
-    //                     height: 28,
-    //                     backgroundColor: "transparent",
-    //                     borderRadius: "5px",
-    //                     display: "flex",
-    //                     justifyContent: "center",
-    //                     alignItems: "center",
-    //                     fontSize: "14px",
-    //                 }}
-    //             ></Box>
-    //         )
-    //     );
-    // };
 
     const renderSeatRow = (rowIndex, rowData) => {
         let count = 1;
@@ -116,7 +79,25 @@ function SeatMap({ seatMap, selectedSeats, handleSetSelectedSeats }) {
                 }
             }
 
-            return seatValue !== 0 ? (
+            return seatValue === 3 ? (
+                <Box
+                    key={colIndex}
+                    sx={{
+                        width: 40,
+                        height: 28,
+                        color: "#8f8f8f",
+                        backgroundColor: getSeatColor(seatValue),
+                        borderRadius: "5px",
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "center",
+                        fontSize: "14px",
+                        cursor: "default",
+                    }}
+                >
+                    {count++}
+                </Box>
+            ) : seatValue !== 0 ? (
                 <Box
                     key={colIndex}
                     sx={{

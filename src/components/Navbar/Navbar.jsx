@@ -39,6 +39,10 @@ function Navbar() {
         navigate("/register"); // Điều hướng đến /register
     };
 
+    const handleClickBookingHistory = () => {
+        navigate("/booking-history");
+    };
+
     const handleLogout = async () => {
         await handleLogoutAPI();
         localStorage.removeItem("userInfo");
@@ -126,7 +130,7 @@ function Navbar() {
                             open={Boolean(anchorEl)} // Menu mở khi anchorEl có giá trị
                             onClose={handleClose} // Đóng menu khi click ra ngoài
                         >
-                            <MenuItem onClick={handleClose}>Lịch sử mua vé</MenuItem>
+                            <MenuItem onClick={handleClickBookingHistory}>Lịch sử mua vé</MenuItem>
                             <MenuItem onClick={handleClose}>Thông tin cá nhân</MenuItem>
                             <MenuItem onClick={handleClose}>Cài đặt</MenuItem>
                             <MenuItem onClick={handleLogout}>Đăng xuất</MenuItem>
