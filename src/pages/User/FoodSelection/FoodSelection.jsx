@@ -42,8 +42,6 @@ function FoodSelection() {
         setSelectedFoods(copySelectedFoods);
     };
 
-    console.log("Check selected foods: ", selectedFoods);
-
     return (
         <Box sx={{ bgcolor: "#f8f8f8" }}>
             <Navbar />

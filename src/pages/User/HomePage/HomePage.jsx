@@ -47,7 +47,8 @@ function HomePage() {
                                 fontWeight: 600,
                                 fontFamily: "Be Vietnam Pro",
                                 textAlign: "center",
-                                my: 2,
+                                mt: 2,
+                                mb: 3,
                                 color: "#337ab7",
                             }}
                         >
@@ -72,7 +73,8 @@ function HomePage() {
                                 fontWeight: 600,
                                 fontFamily: "Be Vietnam Pro",
                                 textAlign: "center",
-                                my: 2,
+                                mt: 2,
+                                mb: 3,
                                 color: "#337ab7",
                             }}
                         >

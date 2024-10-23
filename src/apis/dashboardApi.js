@@ -186,6 +186,28 @@ export const deleteScheduleAPI = async (scheduleId) => {
 };
 
 // Voucher
-export const getVoucherByIdAPI = async (voucherId) => {
-    return await authorizedAxiosInstance.get(`/dashboards/get-voucher-by-id/${voucherId}`);
+export const getVoucherAPI = async (voucherCode) => {
+    return await authorizedAxiosInstance.get(`/dashboards/get-voucher?voucherCode=${voucherCode}`);
+};
+
+// Payment
+export const createPaymentLinkAPI = async () => {
+    return await authorizedAxiosInstance.post(`/dashboards/create-payment-link`);
+};
+
+export const updatePaymentSuccessAPI = async (bookingId) => {
+    return await authorizedAxiosInstance.put(
+        `/dashboards/update-payment-success?bookingId=${bookingId}`
+    );
+};
+
+export const updatePaymentCancelledAPI = async (bookingId) => {
+    return await authorizedAxiosInstance.put(
+        `/dashboards/update-payment-cancelled?bookingId=${bookingId}`
+    );
+};
+
+// Booking
+export const updateBookingAPI = async (bookingData) => {
+    return await authorizedAxiosInstance.put(`/dashboards/update-booking`, bookingData);
 };

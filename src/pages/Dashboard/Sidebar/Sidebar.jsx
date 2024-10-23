@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import List from "@mui/material/List";
 import ListItemButton from "@mui/material/ListItemButton";
@@ -38,6 +39,12 @@ const listItemButtonTheme = createTheme({
 });
 
 function Sidebar({ selectedOption, handleListItemClick }) {
+    const navigate = useNavigate();
+
+    const handleClickLogoDashboard = () => {
+        navigate("/dashboard/overview");
+    };
+
     return (
         <Box
             sx={{
@@ -62,7 +69,9 @@ function Sidebar({ selectedOption, handleListItemClick }) {
                         gap: "10px",
                         width: "100%",
                         pt: 2,
+                        cursor: "pointer",
                     }}
+                    onClick={handleClickLogoDashboard}
                 >
                     <img src={CineFastLogo} style={{ width: "180px" }} />
                 </Box>

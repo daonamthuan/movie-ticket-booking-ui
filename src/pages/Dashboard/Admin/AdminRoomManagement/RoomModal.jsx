@@ -82,7 +82,7 @@ function RoomModal({ cinemaId, isOpenRoomModal, setIsOpenRoomModal, handleFetchC
             setValue("totalSeats", horizontalSeats * verticalSeats);
         }
 
-        console.log("Check seatMap 2: ", seatMap, " - oldSeatMap 2: ", oldSeatMapRef.current);
+        console.log("Check seatMap 2: ", JSON.stringify(seatMap));
     }, [horizontalSeats, verticalSeats]);
 
     const countTotalSeats = (seatMap) => {
@@ -382,7 +382,7 @@ function RoomModal({ cinemaId, isOpenRoomModal, setIsOpenRoomModal, handleFetchC
                                                 height: 20,
                                                 borderRadius: "3px",
                                                 border: "1px solid #d9d9d9",
-                                                backgroundColor: "#4eb84e",
+                                                backgroundColor: "#337ab7",
                                                 cursor: "pointer",
                                             }}
                                         />

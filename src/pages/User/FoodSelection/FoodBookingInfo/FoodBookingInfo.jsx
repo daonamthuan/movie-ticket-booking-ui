@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { formatVND } from "~/utils/helper";
+import { getVoucherAPI, createPaymentLinkAPI, updateBookingAPI } from "~/apis";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
@@ -12,25 +13,73 @@ import FormControl from "@mui/material/FormControl";
 import FormLabel from "@mui/material/FormLabel";
 import PlaceOutlinedIcon from "@mui/icons-material/PlaceOutlined";
 import dayjs from "dayjs";
+import _ from "lodash";
 
 function FoodBookingInfo({ schedule, room, movie, selectedSeats, selectedFoods }) {
     const navigate = useNavigate();
+    const [voucher, setVoucher] = useState(null);
+    const [voucherMessage, setVoucherMessage] = useState("");
     const voucherRef = useRef("");
+    const userInfo = JSON.parse(localStorage.getItem("userInfo"));
+    let voucherAmount = 0;
 
-    const handleApplyVoucher = () => {
-        const voucher = voucherRef.current.value;
-        console.log("Voucher:", voucher);
-    };
+    const handleClickSubmit = async () => {
+        try {
+            console.log("Check submit: ", schedule, selectedSeats, selectedFoods, voucher);
+            const response = await createPaymentLinkAPI();
+            const paymentUrl = response.data.url;
+            const bookingId = response.data.orderCode;
 
-    const handleClickSubmit = () => {
-        console.log("Check submit: ", schedule, selectedSeats, selectedFoods);
-        navigate("/checkout", {
-            state: {
-                seats: selectedSeats,
-                schedule: schedule,
-                selectedFoods: selectedFoods,
-            },
-        });
+            if (paymentUrl) {
+                if (voucher !== null) {
+                    voucherAmount = voucher.amount;
+                }
+                const totalSeatAmount = selectedSeats.reduce(
+                    (total, item) => total + (item.type === 1 ? 60000 : 75000),
+                    0
+                );
+                const totalFoodAmount = selectedFoods.reduce(
+                    (total, item) => total + item.food.price * item.quantity,
+                    0
+                );
+
+                const bookingData = {
+                    id: bookingId,
+                    userId: userInfo.id,
+                    scheduleId: schedule.id,
+                    totalSeatAmount: totalSeatAmount,
+                    totalFoodAmount: totalFoodAmount,
+                    subtotal: totalSeatAmount + totalFoodAmount,
+                    voucherId: voucher?.id,
+                    voucherAmount: voucherAmount,
+                    total:
+                        voucherAmount >= 1
+                            ? totalSeatAmount + totalFoodAmount - voucherAmount
+                            : (totalSeatAmount + totalFoodAmount) * (1 - voucherAmount),
+                    payment: "BANKING",
+                    status: "PENDING",
+                };
+
+                const data = {
+                    bookingId: bookingId,
+                    bookingData: bookingData,
+                    selectedSeats: selectedSeats,
+                    selectedFoods: selectedFoods,
+                };
+
+                console.log("Check data info booking: ", data);
+                let responseUpdate = await updateBookingAPI(data);
+
+                if (responseUpdate.status === 200) {
+                    console.log("Update booking successfully");
+
+                    // Chuyển hướng tới trang thanh toán
+                    window.location.href = paymentUrl;
+                }
+            }
+        } catch (err) {
+            console.log("Error creating payment link: ", err);
+        }
     };
 
     const renderNormalSeatText = () => {
@@ -208,11 +257,38 @@ function FoodBookingInfo({ schedule, room, movie, selectedSeats, selectedFoods }
                                 mb: 0.5,
                             }}
                         >
-                            {formatVND(normalSeatAmount + coupleSeatAmount + totalFoodAmount)}
+                            {voucher === null
+                                ? formatVND(normalSeatAmount + coupleSeatAmount + totalFoodAmount)
+                                : voucher.amount < 1
+                                ? formatVND(
+                                      (normalSeatAmount + coupleSeatAmount + totalFoodAmount) *
+                                          voucher.amount
+                                  )
+                                : formatVND(
+                                      normalSeatAmount +
+                                          coupleSeatAmount +
+                                          totalFoodAmount -
+                                          voucher.amount
+                                  )}
                         </Typography>
                     </Box>
                 </>
             );
+        }
+    };
+
+    const handleApplyVoucher = async () => {
+        let voucherResponse = await getVoucherAPI(voucherRef.current.value);
+        let voucher = voucherResponse.data;
+        if (voucher === null || voucher.status === "USED") {
+            setVoucherMessage("Voucher không tồn tại hoặc đã được sử dụng!");
+        } else {
+            if (voucher.amount < 1) {
+                setVoucherMessage(`Áp mã thành công! Bạn được giảm ${voucher.amount * 100}%.`);
+            } else {
+                setVoucherMessage(`Áp mã thành công! Bạn được giảm ${formatVND(voucher.amount)}.`);
+            }
+            setVoucher(voucherResponse.data);
         }
     };
 
@@ -371,6 +447,9 @@ function FoodBookingInfo({ schedule, room, movie, selectedSeats, selectedFoods }
                     ÁP DỤNG
                 </Button>
             </Box>
+            <Typography sx={{ color: voucherMessage.includes("thành công") ? "green" : "red" }}>
+                {voucherMessage}
+            </Typography>
 
             <Button
                 size="large"

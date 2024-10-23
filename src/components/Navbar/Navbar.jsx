@@ -2,7 +2,6 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { handleLogoutAPI } from "~/apis";
 import CineFastLogo from "~/assets/cinefast-logo.png";
-import AvatarSourceImage from "~/assets/avatar.jpg";
 import {
     AppBar,
     Toolbar,
@@ -16,21 +15,24 @@ import {
 import Avatar from "@mui/material/Avatar";
 
 function Navbar() {
-    let userInfo = localStorage.getItem("userInfo");
+    const navigate = useNavigate();
     const [anchorEl, setAnchorEl] = useState(null);
+    let userInfo = localStorage.getItem("userInfo");
+
+    const handleLogoClick = () => {
+        navigate("/");
+    };
 
     const handleAvatarClick = (event) => {
         setAnchorEl(event.currentTarget); // Mở menu tại vị trí avatar
     };
 
     const handleClose = () => {
-        setAnchorEl(null); // Đóng menu
+        setAnchorEl(null);
     };
 
-    const navigate = useNavigate(); // Sử dụng useNavigate để điều hướng
-
     const handleLogin = () => {
-        navigate("/login"); // Điều hướng đến /login
+        navigate("/login");
     };
 
     const handleRegister = () => {
@@ -45,14 +47,14 @@ function Navbar() {
     };
 
     return (
-        <AppBar
-            position="sticky"
-            sx={{ backgroundColor: "white", color: "#333", boxShadow: "0 3px 6px #ddd" }}
-        >
+        <AppBar position="sticky" sx={{ backgroundColor: "white", color: "#333" }}>
             <Toolbar
                 sx={{ maxWidth: "1280px", width: "100%", height: "70px", margin: "0 auto", px: 6 }}
             >
-                <Box sx={{ height: "70px", flexGrow: 1 }}>
+                <Box
+                    sx={{ height: "70px", flexGrow: 1, cursor: "pointer" }}
+                    onClick={handleLogoClick}
+                >
                     <img src={CineFastLogo} style={{ height: "70px" }} />
                 </Box>
 

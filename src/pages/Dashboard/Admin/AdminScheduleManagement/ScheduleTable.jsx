@@ -95,6 +95,18 @@ function TableSchedule({ schedules, setIsOpenScheduleModal, handleFetchSchedules
                     >
                         Đã chiếu
                     </Box>
+                ) : now > params.row.startTime && now < params.row.endTime ? (
+                    <Box>
+                        <Box
+                            sx={{
+                                textAlign: "center",
+                                bgcolor: "#e9594d",
+                                color: "common.white",
+                            }}
+                        >
+                            Đang chiếu
+                        </Box>
+                    </Box>
                 ) : (
                     <Box>
                         <Box
@@ -116,7 +128,7 @@ function TableSchedule({ schedules, setIsOpenScheduleModal, handleFetchSchedules
             width: 95,
             renderCell: (params) => {
                 let now = new Date().getTime();
-                if (now < params.row.endTime) {
+                if (now < params.row.startTime) {
                     return (
                         <div>
                             <IconButton
