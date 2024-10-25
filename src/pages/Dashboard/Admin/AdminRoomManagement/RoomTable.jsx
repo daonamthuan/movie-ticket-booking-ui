@@ -39,7 +39,7 @@ function RoomTable({ rooms, setIsOpenRoomModal, handleFetchCinemaInfo }) {
             align: "center",
             headerAlign: "center",
             renderCell: (params) => {
-                return params.row.roomSchedule.length === 0 ? (
+                return params.row.schedules.length === 0 ? (
                     <Box
                         sx={{
                             textAlign: "center",
@@ -71,7 +71,7 @@ function RoomTable({ rooms, setIsOpenRoomModal, handleFetchCinemaInfo }) {
             align: "center",
             headerAlign: "center",
             renderCell: (params) => {
-                let startTime = params.row.roomSchedule[0]?.startTime;
+                let startTime = params.row.schedules[0]?.startTime;
                 if (startTime) {
                     startTime = dayjs(startTime);
                     let formattedTime = startTime.format("HH:mm:ss");
@@ -87,7 +87,7 @@ function RoomTable({ rooms, setIsOpenRoomModal, handleFetchCinemaInfo }) {
             align: "center",
             headerAlign: "center",
             renderCell: (params) => {
-                let endTime = params.row.roomSchedule[0]?.endTime;
+                let endTime = params.row.schedules[0]?.endTime;
                 if (endTime) {
                     endTime = dayjs(endTime);
                     let formattedTime = endTime.format("HH:mm:ss");

@@ -434,9 +434,7 @@ function MovieDetail() {
                                         {cinemas &&
                                             cinemas.length > 0 &&
                                             cinemas.map((cinema, index) => {
-                                                let roomIds = cinema.cinemaRooms.map(
-                                                    (room) => room.id
-                                                );
+                                                let roomIds = cinema.rooms.map((room) => room.id);
                                                 let cinemaSchedules = schedules.filter((schedule) =>
                                                     roomIds.includes(schedule.roomId)
                                                 );

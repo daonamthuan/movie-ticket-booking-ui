@@ -22,7 +22,7 @@ function TableSchedule({ schedules, setIsOpenScheduleModal, handleFetchSchedules
             width: 140,
             renderCell: (params) => {
                 const room = rooms.find((room) => room.id === params.row.roomId);
-                return room.cinemaRooms.cinemaName;
+                return room.cinema.cinemaName;
             },
         },
         {

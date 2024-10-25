@@ -91,7 +91,7 @@ function App() {
                     <Route path="schedules" element={<AdminScheduleManagement />} />
                     <Route path="users" element={<AdminUserManagement />} />
                     <Route path="movies" element={<AdminMovieManagement />} />
-                    <Route path="tickets" element={<AdminBookingManagement />} />
+                    <Route path="bookings" element={<AdminBookingManagement />} />
                     <Route path="foods" element={<AdminFoodManagement />} />
                     <Route path="cinemas" element={<AdminCinemaManagement />} />
                     <Route path="rooms" element={<AdminRoomManagement />} />

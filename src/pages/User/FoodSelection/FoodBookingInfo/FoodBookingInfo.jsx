@@ -320,7 +320,7 @@ function FoodBookingInfo({ schedule, room, movie, selectedSeats, selectedFoods }
                         mr: "5px",
                     }}
                 />
-                {room.cinemaRooms.cinemaName}
+                {room.cinema.cinemaName}
             </Typography>
             <Typography
                 sx={{

@@ -62,7 +62,7 @@ authorizedAxiosInstance.interceptors.response.use(
                 // gọi API refreshToken
                 refreshTokenPromise = refreshTokenAPI()
                     .then((res) => {
-                        console.log(res);
+                        console.log("Refresh token successfully : ", res);
                     })
                     .catch((_error) => {
                         // Nếu như gặp bất kỳ lỗi nào từ API Refresh Token thì logout luôn

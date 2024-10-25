@@ -212,6 +212,12 @@ export const updateBookingAPI = async (bookingData) => {
     return await authorizedAxiosInstance.put(`/dashboards/update-booking`, bookingData);
 };
 
+export const getAllBookingByUserIdAPI = async (userId) => {
+    return await authorizedAxiosInstance.get(
+        `/dashboards/get-all-booking-by-user-id?userId=${userId}`
+    );
+};
+
 // Seat_Booking
 export const getAllBookedSeatsAPI = async (scheduleId) => {
     return await authorizedAxiosInstance.get(

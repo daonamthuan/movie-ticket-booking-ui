@@ -184,7 +184,7 @@ function SeatBookingInfo({ schedule, room, movie, selectedSeats }) {
                         mr: "5px",
                     }}
                 />
-                {room.cinemaRooms.cinemaName}
+                {room.cinema.cinemaName}
             </Typography>
             <Typography
                 sx={{

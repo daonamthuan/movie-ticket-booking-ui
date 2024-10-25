@@ -30,8 +30,8 @@ function Dashboard() {
             case "schedules":
                 navigate("/dashboard/schedules");
                 break;
-            case "tickets":
-                navigate("/dashboard/tickets");
+            case "bookings":
+                navigate("/dashboard/bookings");
                 break;
             case "movies":
                 navigate("/dashboard/movies");

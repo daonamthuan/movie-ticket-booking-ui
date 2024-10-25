@@ -130,33 +130,35 @@ const ScheduleShowing = React.memo(({ cinema, schedules }) => {
                             );
 
                             return filteredSchedules.length > 0 ? (
-                                filteredSchedules.map((schedule, index) =>
-                                    schedule.startTime > dayjs().valueOf() ? (
-                                        <Button
-                                            key={index}
-                                            variant="contained"
-                                            size="large"
-                                            sx={{ width: "165px", backgroundColor: "#337ab7" }}
-                                            onClick={() => handleClickSchedule(schedule.id)}
-                                        >
-                                            {`${dayjs(schedule.startTime).format(
-                                                "HH:mm"
-                                            )} - ${dayjs(schedule.endTime).format("HH:mm")}`}
-                                        </Button>
-                                    ) : (
-                                        <Button
-                                            disabled
-                                            key={index}
-                                            variant="contained"
-                                            size="large"
-                                            sx={{ width: "165px", backgroundColor: "#337ab7" }}
-                                        >
-                                            {`${dayjs(schedule.startTime).format(
-                                                "HH:mm"
-                                            )} - ${dayjs(schedule.endTime).format("HH:mm")}`}
-                                        </Button>
+                                filteredSchedules
+                                    .sort((a, b) => a.startTime - b.startTime)
+                                    .map((schedule, index) =>
+                                        schedule.startTime > dayjs().valueOf() ? (
+                                            <Button
+                                                key={index}
+                                                variant="contained"
+                                                size="large"
+                                                sx={{ width: "165px", backgroundColor: "#337ab7" }}
+                                                onClick={() => handleClickSchedule(schedule.id)}
+                                            >
+                                                {`${dayjs(schedule.startTime).format(
+                                                    "HH:mm"
+                                                )} - ${dayjs(schedule.endTime).format("HH:mm")}`}
+                                            </Button>
+                                        ) : (
+                                            <Button
+                                                disabled
+                                                key={index}
+                                                variant="contained"
+                                                size="large"
+                                                sx={{ width: "165px", backgroundColor: "#337ab7" }}
+                                            >
+                                                {`${dayjs(schedule.startTime).format(
+                                                    "HH:mm"
+                                                )} - ${dayjs(schedule.endTime).format("HH:mm")}`}
+                                            </Button>
+                                        )
                                     )
-                                )
                             ) : (
                                 <Typography>Hiện không có lịch chiếu</Typography>
                             );

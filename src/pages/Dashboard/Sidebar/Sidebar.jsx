@@ -84,7 +84,7 @@ function Sidebar({ selectedOption, handleListItemClick }) {
                             <ListItemIcon>
                                 <DataUsageOutlinedIcon />
                             </ListItemIcon>
-                            <ListItemText primary="Overview" />
+                            <ListItemText primary="Tổng quan" />
                         </ListItemButton>
 
                         <ListItemButton
@@ -94,17 +94,17 @@ function Sidebar({ selectedOption, handleListItemClick }) {
                             <ListItemIcon>
                                 <CalendarMonthOutlinedIcon />
                             </ListItemIcon>
-                            <ListItemText primary="Schedules" />
+                            <ListItemText primary="Lịch chiếu" />
                         </ListItemButton>
 
                         <ListItemButton
-                            selected={selectedOption === "tickets"}
-                            onClick={() => handleListItemClick("tickets")}
+                            selected={selectedOption === "bookings"}
+                            onClick={() => handleListItemClick("bookings")}
                         >
                             <ListItemIcon>
                                 <BookOnlineOutlinedIcon />
                             </ListItemIcon>
-                            <ListItemText primary="Tickets" />
+                            <ListItemText primary="Danh sách đặt vé" />
                         </ListItemButton>
 
                         <ListItemButton
@@ -114,7 +114,7 @@ function Sidebar({ selectedOption, handleListItemClick }) {
                             <ListItemIcon>
                                 <LocalMoviesOutlinedIcon />
                             </ListItemIcon>
-                            <ListItemText primary="Movies" />
+                            <ListItemText primary="Phim" />
                         </ListItemButton>
 
                         <ListItemButton
@@ -124,7 +124,7 @@ function Sidebar({ selectedOption, handleListItemClick }) {
                             <ListItemIcon>
                                 <FastfoodOutlinedIcon />
                             </ListItemIcon>
-                            <ListItemText primary="Foods" />
+                            <ListItemText primary="Đồ ăn" />
                         </ListItemButton>
 
                         <ListItemButton
@@ -134,7 +134,7 @@ function Sidebar({ selectedOption, handleListItemClick }) {
                             <ListItemIcon>
                                 <PeopleAltOutlinedIcon />
                             </ListItemIcon>
-                            <ListItemText primary="Users" />
+                            <ListItemText primary="Người dùng" />
                         </ListItemButton>
 
                         <ListItemButton
@@ -144,7 +144,7 @@ function Sidebar({ selectedOption, handleListItemClick }) {
                             <ListItemIcon>
                                 <BusinessOutlinedIcon />
                             </ListItemIcon>
-                            <ListItemText primary="Cinemas" />
+                            <ListItemText primary="Cụm rạp" />
                         </ListItemButton>
 
                         <ListItemButton
@@ -154,7 +154,7 @@ function Sidebar({ selectedOption, handleListItemClick }) {
                             <ListItemIcon>
                                 <DiscountOutlinedIcon />
                             </ListItemIcon>
-                            <ListItemText primary="Promotions" />
+                            <ListItemText primary="Khuyến mãi" />
                         </ListItemButton>
 
                         <ListItemButton
@@ -164,7 +164,7 @@ function Sidebar({ selectedOption, handleListItemClick }) {
                             <ListItemIcon>
                                 <AssessmentOutlinedIcon />
                             </ListItemIcon>
-                            <ListItemText primary="Statistics" />
+                            <ListItemText primary="Thống kê" />
                         </ListItemButton>
                     </ThemeProvider>
                 </List>

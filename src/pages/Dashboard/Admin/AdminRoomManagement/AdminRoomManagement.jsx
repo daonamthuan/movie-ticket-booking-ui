@@ -19,7 +19,7 @@ function AdminRoomManagement() {
     const fetchCinemaInfo = async (cinemaId) => {
         let response = await getCinemaInfoByIdAPI(cinemaId);
         setCinemaInfo(response.data);
-        setRooms(response.data.cinemaRooms);
+        setRooms(response.data.rooms);
     };
 
     useEffect(() => {
