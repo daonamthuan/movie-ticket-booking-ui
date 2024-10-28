@@ -1,6 +1,9 @@
 import { useNavigate } from "react-router-dom";
-import { Box, ThemeProvider, createTheme } from "@mui/system";
-import Link from "@mui/material/Link";
+import emitter from "~/utils/emitter";
+import { ThemeProvider, createTheme } from "@mui/material/styles";
+import { formatVND } from "~/utils/helper";
+import Button from "@mui/material/Button";
+import Box from "@mui/material/Box";
 
 const theme = createTheme({
     palette: {
@@ -15,8 +18,13 @@ const theme = createTheme({
             active: "#001E3C",
         },
         success: {
-            dark: "#009688",
+            main: "#009688", // Thêm thuộc tính `main`
+            dark: "#00796b",
         },
+    },
+    typography: {
+        fontSize: 14,
+        fontWeightMedium: 500,
     },
 });
 
@@ -24,6 +32,7 @@ function SummaryCard({ cardInfo }) {
     const navigate = useNavigate();
 
     const handleShowDetails = (option) => {
+        emitter.emit("updateSelectedSideBar", { option: option });
         navigate(`/dashboard/${option}`);
     };
 
@@ -31,18 +40,17 @@ function SummaryCard({ cardInfo }) {
         <ThemeProvider theme={theme}>
             <Box
                 sx={{
-                    width: 250,
+                    width: 270,
                     minWidth: 100,
                     bgcolor: "background.paper",
                     borderRadius: 2,
                     px: 2.5,
                     py: 1.5,
-                    // border: "1px solid red",
                 }}
             >
                 <Box sx={{ color: "text.secondary", fontSize: 14 }}>{cardInfo.title}</Box>
                 <Box sx={{ color: "text.primary", fontSize: 28, fontWeight: "medium" }}>
-                    {cardInfo.metric}
+                    {cardInfo.name === "statistics" ? formatVND(cardInfo.metric) : cardInfo.metric}
                 </Box>
                 <Box
                     sx={{
@@ -57,13 +65,14 @@ function SummaryCard({ cardInfo }) {
                 <Box sx={{ color: "text.secondary", display: "inline", fontSize: 14, mt: 0 }}>
                     so với tuần trước
                 </Box>
-                <Link
-                    href="/dashboard/overview"
-                    color="#005792"
-                    sx={{ display: "block", fontSize: 14, mt: 0.5 }}
+                <Button
+                    onClick={() => handleShowDetails(cardInfo.name)}
+                    variant="text"
+                    color="primary"
+                    sx={{ fontSize: 14, mt: 0.5, p: 0 }}
                 >
                     Xem chi tiết
-                </Link>
+                </Button>
             </Box>
         </ThemeProvider>
     );

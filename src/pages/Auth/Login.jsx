@@ -1,15 +1,17 @@
-import Button from "@mui/material/Button";
+import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
+import { useForm } from "react-hook-form";
+import { handleLoginAPI } from "~/apis";
 import { Card as MuiCard } from "@mui/material";
 import CardActions from "@mui/material/CardActions";
 import TextField from "@mui/material/TextField";
+import Typography from "@mui/material/Typography";
 import Zoom from "@mui/material/Zoom";
 import Alert from "@mui/material/Alert";
-import { useForm } from "react-hook-form";
 import CineFastLogo from "~/assets/cinefast-logo.png";
-import { useNavigate } from "react-router-dom";
+import Button from "@mui/material/Button";
+
 import Box from "@mui/material/Box";
-import { handleLoginAPI } from "~/apis";
 
 function Login() {
     const {
@@ -60,6 +62,18 @@ function Login() {
                     >
                         <Box sx={{ width: "200px", bgcolor: "white", margin: "5px auto 0" }}>
                             <img src={CineFastLogo} width="100%" />
+                        </Box>
+                        <Box
+                            sx={{
+                                display: "flex",
+                                justifyContent: "center",
+                                color: (theme) => theme.palette.grey[500],
+                            }}
+                        >
+                            <Box>
+                                <Typography>Hint: admin@gmail.com (customer@...)</Typography>
+                                <Typography>Pass: 123456Aa@</Typography>
+                            </Box>
                         </Box>
 
                         <Box sx={{ padding: "0 1em 1em 1em" }}>

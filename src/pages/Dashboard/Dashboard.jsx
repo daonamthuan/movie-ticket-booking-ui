@@ -1,6 +1,7 @@
 import { Outlet } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import emitter from "~/utils/emitter";
 import Typography from "@mui/material/Typography";
 import CircularProgress from "@mui/material/CircularProgress";
 import authorizedAxiosInstance from "~/utils/authorizedAxios";
@@ -10,7 +11,7 @@ import Box from "@mui/material/Box";
 
 function Dashboard() {
     const [user, setUser] = useState(null);
-    const [selectedOption, setSelectedOption] = useState("schedules");
+    const [selectedOption, setSelectedOption] = useState("overview");
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -19,7 +20,17 @@ function Dashboard() {
             setUser(res.data);
         };
         fetchData();
-        navigate("/dashboard/schedules");
+        navigate("/dashboard/overview");
+
+        const handleUpdateSelectedItem = (data) => {
+            setSelectedOption(data.option);
+        };
+        // emitter to refreshTable
+        emitter.on("updateSelectedSideBar", handleUpdateSelectedItem);
+        return () => {
+            // clear emitter when component unmount
+            emitter.off("updateSelectedSideBar", handleUpdateSelectedItem);
+        };
     }, []);
 
     const handleListItemClick = (option) => {
@@ -45,9 +56,15 @@ function Dashboard() {
             case "cinemas":
                 navigate("/dashboard/cinemas");
                 break;
+            case "promotions":
+                navigate("/dashboard/promotions");
+                break;
+            case "statistics":
+                navigate("/dashboard/statistics");
+                break;
 
             default:
-                navigate("/dashboard/movies");
+                navigate("/dashboard/overview");
                 break;
         }
         setSelectedOption(option);

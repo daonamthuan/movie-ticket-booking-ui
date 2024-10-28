@@ -11,7 +11,6 @@ const roomSlice = createSlice({
     initialState,
     reducers: {
         setDataRoomEdit: (state, action) => {
-            console.log("Redux setDataRoomEdit: ", action.payload);
             state.dataRoomEdit = action.payload;
         },
         clearDataRoomEdit: (state) => {

@@ -1,5 +1,6 @@
 import { Routes, Route, Navigate, Outlet } from "react-router-dom";
 import Login from "~/pages/Auth/Login";
+import Register from "./pages/Auth/Register";
 import Dashboard from "~/pages/Dashboard/Dashboard";
 import { useNavigate } from "react-router-dom";
 import { setNavigate } from "~/utils/authorizedAxios";
@@ -19,6 +20,7 @@ import AdminFoodManagement from "./pages/Dashboard/Admin/AdminFoodManagement/Adm
 import AdminScheduleManagement from "./pages/Dashboard/Admin/AdminScheduleManagement/AdminScheduleManagement";
 import AdminCinemaManagement from "./pages/Dashboard/Admin/AdminCinemaManagement/AdminCinemaManagement";
 import AdminRoomManagement from "./pages/Dashboard/Admin/AdminRoomManagement/AdminRoomManagement";
+import AdminPromotionManagement from "./pages/Dashboard/Admin/AdminPromotionManagement/AdminPromotionManagement";
 
 const AdminRoutes = () => {
     const user = JSON.parse(localStorage.getItem("userInfo"));
@@ -59,6 +61,7 @@ function App() {
         <Routes>
             <Route element={<UnauthorizedRoutes />}>
                 <Route path="/login" element={<Login />} />
+                <Route path="/register" element={<Register />} />
             </Route>
 
             <Route path="/" element={<HomePage />} />
@@ -95,6 +98,8 @@ function App() {
                     <Route path="foods" element={<AdminFoodManagement />} />
                     <Route path="cinemas" element={<AdminCinemaManagement />} />
                     <Route path="rooms" element={<AdminRoomManagement />} />
+                    <Route path="promotions" element={<AdminPromotionManagement />} />
+                    <Route path="statistics" element={<AdminOverview />} />
                 </Route>
             </Route>
         </Routes>

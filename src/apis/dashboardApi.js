@@ -186,8 +186,28 @@ export const deleteScheduleAPI = async (scheduleId) => {
 };
 
 // Voucher
+export const fetchAllVouchersAPI = async () => {
+    return await authorizedAxiosInstance.get(`/dashboards/get-all-vouchers`);
+};
+
 export const getVoucherAPI = async (voucherCode) => {
-    return await authorizedAxiosInstance.get(`/dashboards/get-voucher?voucherCode=${voucherCode}`);
+    return await authorizedAxiosInstance.get(
+        `/dashboards/get-voucher-by-code?voucherCode=${voucherCode}`
+    );
+};
+
+export const createNewVoucherAPI = async (voucherData) => {
+    return await authorizedAxiosInstance.post(`/dashboards/create-new-voucher`, voucherData);
+};
+
+export const updateVoucherAPI = async (voucherData) => {
+    return await authorizedAxiosInstance.put(`/dashboards/update-voucher`, voucherData);
+};
+
+export const deleteVoucherAPI = async (voucherId) => {
+    return await authorizedAxiosInstance.delete(
+        `/dashboards/delete-voucher?voucherId=${voucherId}`
+    );
 };
 
 // Payment
@@ -223,4 +243,9 @@ export const getAllBookedSeatsAPI = async (scheduleId) => {
     return await authorizedAxiosInstance.get(
         `/dashboards/get-all-booked-seats?scheduleId=${scheduleId}`
     );
+};
+
+// Overview
+export const getOverviewDataAPT = async () => {
+    return await authorizedAxiosInstance.get(`/dashboards/get-overview-data`);
 };

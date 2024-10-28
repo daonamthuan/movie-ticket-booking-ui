@@ -6,6 +6,7 @@ import foodReducer from "./slice/foodSlice";
 import cinemaReducer from "./slice/cinemaSlice";
 import roomReducer from "./slice/roomSlice";
 import scheduleReducer from "./slice/scheduleSlice";
+import voucherReducer from "./slice/voucherSlice";
 import homeReducer from "./slice/homeSlice";
 
 const rootReducer = combineReducers({
@@ -17,6 +18,7 @@ const rootReducer = combineReducers({
     cinema: cinemaReducer,
     room: roomReducer,
     schedule: scheduleReducer,
+    voucher: voucherReducer,
 });
 
 export default rootReducer;

@@ -132,7 +132,6 @@ function Navbar() {
                         >
                             <MenuItem onClick={handleClickBookingHistory}>Lịch sử mua vé</MenuItem>
                             <MenuItem onClick={handleClose}>Thông tin cá nhân</MenuItem>
-                            <MenuItem onClick={handleClose}>Cài đặt</MenuItem>
                             <MenuItem onClick={handleLogout}>Đăng xuất</MenuItem>
                         </Menu>
                     </Box>
