@@ -1,9 +1,14 @@
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { handleLogoutAPI } from "~/apis";
 import { styled, alpha } from "@mui/material/styles";
 import InputBase from "@mui/material/InputBase";
 import Typography from "@mui/material/Typography";
 import IconButton from "@mui/material/IconButton";
 import Badge from "@mui/material/Badge";
 import SearchIcon from "@mui/icons-material/Search";
+import Menu from "@mui/material/Menu";
+import MenuItem from "@mui/material/MenuItem";
 import MailIcon from "@mui/icons-material/Mail";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import SettingsIcon from "@mui/icons-material/Settings";
@@ -47,6 +52,24 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 function Topbar() {
+    const navigate = useNavigate();
+    const [anchorEl, setAnchorEl] = useState(null);
+
+    const handleClick = (event) => {
+        setAnchorEl(event.currentTarget);
+    };
+
+    const handleClose = () => {
+        setAnchorEl(null);
+    };
+
+    const handleLogout = async () => {
+        await handleLogoutAPI();
+        localStorage.removeItem("userInfo");
+
+        navigate("/login");
+    };
+
     return (
         <Box
             sx={{
@@ -91,9 +114,22 @@ function Topbar() {
                         <NotificationsIcon />
                     </Badge>
                 </IconButton>
-                <IconButton size="large" aria-label="setting icon" color="inherit">
+                <IconButton
+                    size="large"
+                    aria-label="setting icon"
+                    color="inherit"
+                    onClick={handleClick}
+                >
                     <SettingsIcon />
                 </IconButton>
+
+                <Menu
+                    anchorEl={anchorEl} // Đặt menu tại vị trí của IconButton
+                    open={Boolean(anchorEl)} // Mở menu khi anchorEl có giá trị
+                    onClose={handleClose} // Đóng menu khi click ra ngoài
+                >
+                    <MenuItem onClick={handleLogout}>Đăng xuất</MenuItem>
+                </Menu>
             </Box>
         </Box>
     );
